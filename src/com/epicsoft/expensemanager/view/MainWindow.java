@@ -6,6 +6,9 @@
 
 package com.epicsoft.expensemanager.view;
 
+import java.awt.Color;
+import javax.swing.JDialog;
+
 /**
  *
  * @author hp
@@ -17,6 +20,7 @@ public class MainWindow extends javax.swing.JFrame {
      */
     public MainWindow() {
         initComponents();
+        this.getContentPane().setBackground(Color.WHITE);
     }
 
     /**
@@ -28,21 +32,357 @@ public class MainWindow extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        activeUserLabel = new javax.swing.JLabel();
+        changeUserButton = new javax.swing.JLabel();
+        tabItemsPanel = new javax.swing.JPanel();
+        overviewButton = new javax.swing.JLabel();
+        accountsButton = new javax.swing.JLabel();
+        accountSummaryButton = new javax.swing.JLabel();
+        accountActivitiesButton = new javax.swing.JLabel();
+        expensesButton = new javax.swing.JLabel();
+        earningsButton = new javax.swing.JLabel();
+        budgetButton = new javax.swing.JLabel();
+        manageCategoriesButton = new javax.swing.JLabel();
+        reportsButton = new javax.swing.JLabel();
+        configurationButton = new javax.swing.JLabel();
+        aboutButton = new javax.swing.JLabel();
+        helpButton = new javax.swing.JLabel();
+        jLayeredPane1 = new javax.swing.JLayeredPane();
+        overviewPanel = new javax.swing.JPanel();
+        defaultAccLabel = new javax.swing.JLabel();
+        defaultAccBalanceLabel = new javax.swing.JLabel();
+        defAccIncome = new javax.swing.JLabel();
+        defAccIncomeLabel = new javax.swing.JLabel();
+        defAccExpense = new javax.swing.JLabel();
+        defAccExpenseLabel = new javax.swing.JLabel();
+        secondAccountLabel = new javax.swing.JLabel();
+        secondAccountBalance = new javax.swing.JLabel();
+        secAccIncomeLabel = new javax.swing.JLabel();
+        secAccExpenseLabel = new javax.swing.JLabel();
+        secAccExpense = new javax.swing.JLabel();
+        secAccIncome = new javax.swing.JLabel();
+        accSummaryBox = new javax.swing.JLabel();
+        accountsPanel = new javax.swing.JPanel();
+        accountSummaryPanel = new javax.swing.JPanel();
+        accountActivitiesPanel = new javax.swing.JPanel();
+        expensesPanel = new javax.swing.JPanel();
+        earningsPanel = new javax.swing.JPanel();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Expense Manager");
+        setBackground(new java.awt.Color(255, 255, 255));
+        setForeground(java.awt.Color.white);
+        setIconImages(null);
+        setPreferredSize(new java.awt.Dimension(1024, 700));
+
+        activeUserLabel.setBackground(new java.awt.Color(255, 153, 255));
+        activeUserLabel.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
+        activeUserLabel.setForeground(new java.awt.Color(255, 102, 255));
+        activeUserLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        activeUserLabel.setText("Active User");
+
+        changeUserButton.setFont(new java.awt.Font("Segoe UI Semibold", 0, 12)); // NOI18N
+        changeUserButton.setForeground(new java.awt.Color(255, 102, 255));
+        changeUserButton.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        changeUserButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/epicsoft/expensemanager/guiImages/UserButtonBackground.png"))); // NOI18N
+
+        tabItemsPanel.setPreferredSize(new java.awt.Dimension(150, 669));
+
+        overviewButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/epicsoft/expensemanager/guiImages/OverviewActive.png"))); // NOI18N
+
+        accountsButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/epicsoft/expensemanager/guiImages/AccountsInactive.png"))); // NOI18N
+        accountsButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                accountsButtonMouseClicked(evt);
+            }
+        });
+
+        accountSummaryButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/epicsoft/expensemanager/guiImages/AccountSummaryInactive.png"))); // NOI18N
+
+        accountActivitiesButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/epicsoft/expensemanager/guiImages/AccountActivitesInactive.png"))); // NOI18N
+
+        expensesButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/epicsoft/expensemanager/guiImages/ExpensesInactive.png"))); // NOI18N
+
+        earningsButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/epicsoft/expensemanager/guiImages/EarningsInactive.png"))); // NOI18N
+
+        budgetButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/epicsoft/expensemanager/guiImages/BudgetInactive.png"))); // NOI18N
+
+        manageCategoriesButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/epicsoft/expensemanager/guiImages/ManageCategoriesInactive.png"))); // NOI18N
+
+        reportsButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/epicsoft/expensemanager/guiImages/ReportsInactive.png"))); // NOI18N
+
+        configurationButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/epicsoft/expensemanager/guiImages/ConfigurationInactive.png"))); // NOI18N
+
+        aboutButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/epicsoft/expensemanager/guiImages/AboutInactive.png"))); // NOI18N
+
+        helpButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/epicsoft/expensemanager/guiImages/HelpInactive.png"))); // NOI18N
+
+        javax.swing.GroupLayout tabItemsPanelLayout = new javax.swing.GroupLayout(tabItemsPanel);
+        tabItemsPanel.setLayout(tabItemsPanelLayout);
+        tabItemsPanelLayout.setHorizontalGroup(
+            tabItemsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(overviewButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(accountsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(accountSummaryButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(accountActivitiesButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(expensesButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(earningsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(budgetButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(reportsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(manageCategoriesButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(configurationButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(aboutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(helpButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        tabItemsPanelLayout.setVerticalGroup(
+            tabItemsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(tabItemsPanelLayout.createSequentialGroup()
+                .addComponent(overviewButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(accountsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(accountSummaryButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(accountActivitiesButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(expensesButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(earningsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(budgetButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(manageCategoriesButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(reportsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(configurationButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(aboutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(helpButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 211, Short.MAX_VALUE))
+        );
+
+        jLayeredPane1.setPreferredSize(new java.awt.Dimension(868, 669));
+
+        overviewPanel.setPreferredSize(new java.awt.Dimension(858, 669));
+        overviewPanel.setLayout(null);
+
+        defaultAccLabel.setFont(new java.awt.Font("Segoe UI Semilight", 0, 18)); // NOI18N
+        defaultAccLabel.setText("Cash");
+        overviewPanel.add(defaultAccLabel);
+        defaultAccLabel.setBounds(20, 40, 140, 25);
+
+        defaultAccBalanceLabel.setFont(new java.awt.Font("Segoe UI Semilight", 0, 18)); // NOI18N
+        defaultAccBalanceLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        defaultAccBalanceLabel.setText("Rs. 100.00");
+        overviewPanel.add(defaultAccBalanceLabel);
+        defaultAccBalanceLabel.setBounds(150, 40, 150, 25);
+
+        defAccIncome.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        defAccIncome.setText("Income");
+        overviewPanel.add(defAccIncome);
+        defAccIncome.setBounds(20, 65, 60, 20);
+
+        defAccIncomeLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        defAccIncomeLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        defAccIncomeLabel.setText("Rs. 123.00");
+        overviewPanel.add(defAccIncomeLabel);
+        defAccIncomeLabel.setBounds(150, 65, 150, 20);
+
+        defAccExpense.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        defAccExpense.setText("Expense");
+        overviewPanel.add(defAccExpense);
+        defAccExpense.setBounds(20, 85, 60, 20);
+
+        defAccExpenseLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        defAccExpenseLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        defAccExpenseLabel.setText("Rs.100.00");
+        overviewPanel.add(defAccExpenseLabel);
+        defAccExpenseLabel.setBounds(150, 85, 150, 20);
+
+        secondAccountLabel.setFont(new java.awt.Font("Segoe UI Semilight", 0, 18)); // NOI18N
+        secondAccountLabel.setText("Second account");
+        overviewPanel.add(secondAccountLabel);
+        secondAccountLabel.setBounds(20, 130, 140, 25);
+
+        secondAccountBalance.setFont(new java.awt.Font("Segoe UI Semilight", 0, 18)); // NOI18N
+        secondAccountBalance.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        secondAccountBalance.setText("Rs. 100.00");
+        overviewPanel.add(secondAccountBalance);
+        secondAccountBalance.setBounds(150, 130, 150, 25);
+
+        secAccIncomeLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        secAccIncomeLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        secAccIncomeLabel.setText("Rs. 123.00");
+        overviewPanel.add(secAccIncomeLabel);
+        secAccIncomeLabel.setBounds(150, 155, 150, 20);
+
+        secAccExpenseLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        secAccExpenseLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        secAccExpenseLabel.setText("Rs.100.00");
+        overviewPanel.add(secAccExpenseLabel);
+        secAccExpenseLabel.setBounds(150, 175, 150, 20);
+
+        secAccExpense.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        secAccExpense.setText("Expense");
+        overviewPanel.add(secAccExpense);
+        secAccExpense.setBounds(20, 175, 60, 20);
+
+        secAccIncome.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        secAccIncome.setText("Income");
+        overviewPanel.add(secAccIncome);
+        secAccIncome.setBounds(20, 155, 60, 20);
+
+        accSummaryBox.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/epicsoft/expensemanager/guiImages/Accountsummaryboxbg.png"))); // NOI18N
+        accSummaryBox.setPreferredSize(new java.awt.Dimension(300, 250));
+        overviewPanel.add(accSummaryBox);
+        accSummaryBox.setBounds(10, 10, 300, 200);
+
+        accountsPanel.setPreferredSize(new java.awt.Dimension(858, 669));
+        accountsPanel.setLayout(null);
+
+        accountSummaryPanel.setPreferredSize(new java.awt.Dimension(858, 669));
+
+        javax.swing.GroupLayout accountSummaryPanelLayout = new javax.swing.GroupLayout(accountSummaryPanel);
+        accountSummaryPanel.setLayout(accountSummaryPanelLayout);
+        accountSummaryPanelLayout.setHorizontalGroup(
+            accountSummaryPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 878, Short.MAX_VALUE)
+        );
+        accountSummaryPanelLayout.setVerticalGroup(
+            accountSummaryPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 630, Short.MAX_VALUE)
+        );
+
+        accountActivitiesPanel.setPreferredSize(new java.awt.Dimension(858, 669));
+
+        javax.swing.GroupLayout accountActivitiesPanelLayout = new javax.swing.GroupLayout(accountActivitiesPanel);
+        accountActivitiesPanel.setLayout(accountActivitiesPanelLayout);
+        accountActivitiesPanelLayout.setHorizontalGroup(
+            accountActivitiesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 878, Short.MAX_VALUE)
+        );
+        accountActivitiesPanelLayout.setVerticalGroup(
+            accountActivitiesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 630, Short.MAX_VALUE)
+        );
+
+        expensesPanel.setPreferredSize(new java.awt.Dimension(858, 669));
+
+        javax.swing.GroupLayout expensesPanelLayout = new javax.swing.GroupLayout(expensesPanel);
+        expensesPanel.setLayout(expensesPanelLayout);
+        expensesPanelLayout.setHorizontalGroup(
+            expensesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 878, Short.MAX_VALUE)
+        );
+        expensesPanelLayout.setVerticalGroup(
+            expensesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 630, Short.MAX_VALUE)
+        );
+
+        earningsPanel.setPreferredSize(new java.awt.Dimension(858, 669));
+
+        javax.swing.GroupLayout earningsPanelLayout = new javax.swing.GroupLayout(earningsPanel);
+        earningsPanel.setLayout(earningsPanelLayout);
+        earningsPanelLayout.setHorizontalGroup(
+            earningsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 878, Short.MAX_VALUE)
+        );
+        earningsPanelLayout.setVerticalGroup(
+            earningsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 630, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
+        jLayeredPane1.setLayout(jLayeredPane1Layout);
+        jLayeredPane1Layout.setHorizontalGroup(
+            jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(overviewPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                    .addComponent(accountsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                    .addComponent(accountSummaryPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                    .addComponent(accountActivitiesPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                    .addComponent(expensesPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                    .addComponent(earningsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+        jLayeredPane1Layout.setVerticalGroup(
+            jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 630, Short.MAX_VALUE)
+            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                    .addComponent(overviewPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 630, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(accountsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 669, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(accountSummaryPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(accountActivitiesPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(expensesPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(earningsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jLayeredPane1.setLayer(overviewPanel, javax.swing.JLayeredPane.PALETTE_LAYER);
+        jLayeredPane1.setLayer(accountsPanel, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(accountSummaryPanel, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(accountActivitiesPanel, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(expensesPanel, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(earningsPanel, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(activeUserLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(changeUserButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(43, 43, 43))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(tabItemsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(jLayeredPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 874, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(5, 5, 5)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(activeUserLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(changeUserButton, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(tabItemsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 691, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 630, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void accountsButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_accountsButtonMouseClicked
+        overviewPanel.setVisible(false);
+        accountsPanel.setVisible(true);
+        accountsButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/epicsoft/expensemanager/guiImages/AccountsActive.png")));
+    }//GEN-LAST:event_accountsButtonMouseClicked
 
     /**
      * @param args the command line arguments
@@ -80,5 +420,40 @@ public class MainWindow extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel aboutButton;
+    private javax.swing.JLabel accSummaryBox;
+    private javax.swing.JLabel accountActivitiesButton;
+    private javax.swing.JPanel accountActivitiesPanel;
+    private javax.swing.JLabel accountSummaryButton;
+    private javax.swing.JPanel accountSummaryPanel;
+    private javax.swing.JLabel accountsButton;
+    private javax.swing.JPanel accountsPanel;
+    private javax.swing.JLabel activeUserLabel;
+    private javax.swing.JLabel budgetButton;
+    private javax.swing.JLabel changeUserButton;
+    private javax.swing.JLabel configurationButton;
+    private javax.swing.JLabel defAccExpense;
+    private javax.swing.JLabel defAccExpenseLabel;
+    private javax.swing.JLabel defAccIncome;
+    private javax.swing.JLabel defAccIncomeLabel;
+    private javax.swing.JLabel defaultAccBalanceLabel;
+    private javax.swing.JLabel defaultAccLabel;
+    private javax.swing.JLabel earningsButton;
+    private javax.swing.JPanel earningsPanel;
+    private javax.swing.JLabel expensesButton;
+    private javax.swing.JPanel expensesPanel;
+    private javax.swing.JLabel helpButton;
+    private javax.swing.JLayeredPane jLayeredPane1;
+    private javax.swing.JLabel manageCategoriesButton;
+    private javax.swing.JLabel overviewButton;
+    private javax.swing.JPanel overviewPanel;
+    private javax.swing.JLabel reportsButton;
+    private javax.swing.JLabel secAccExpense;
+    private javax.swing.JLabel secAccExpenseLabel;
+    private javax.swing.JLabel secAccIncome;
+    private javax.swing.JLabel secAccIncomeLabel;
+    private javax.swing.JLabel secondAccountBalance;
+    private javax.swing.JLabel secondAccountLabel;
+    private javax.swing.JPanel tabItemsPanel;
     // End of variables declaration//GEN-END:variables
 }

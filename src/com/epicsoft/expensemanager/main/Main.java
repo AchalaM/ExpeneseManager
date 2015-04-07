@@ -7,9 +7,15 @@
 package com.epicsoft.expensemanager.main;
 
 import com.epicsoft.expensemanager.controller.DBController;
+import com.epicsoft.expensemanager.db.DBConnection;
+import com.epicsoft.expensemanager.view.*;
+import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.apache.derby.iapi.jdbc.BrokeredConnection;
 
 /**
  *
@@ -18,13 +24,9 @@ import java.util.logging.Logger;
 public class Main {
     
     public static void main(String args[]) {
+        LoginFrame loginframe = new LoginFrame();
+        loginframe.setVisible(true);
         
-        DBController db = new DBController();
-        try {
-            db.createDB();
-        } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
     
 }

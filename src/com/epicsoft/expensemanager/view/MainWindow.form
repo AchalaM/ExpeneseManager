@@ -892,14 +892,16 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="CategoryLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="expenseCategoryComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Group type="103" alignment="3" groupAlignment="3" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                               <Component id="allTimeRadioButton1" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="yearlyRadioButton1" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="monthlyRadioButton1" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="dailyRadioButton1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="CategoryLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="expenseCategoryComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -1026,14 +1028,16 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="accountLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="earningCategoryComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Group type="103" alignment="3" groupAlignment="3" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                               <Component id="allTimeRadioButton2" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="yearlyRadioButton2" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="monthlyRadioButton2" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="dailyRadioButton2" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="accountLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="earningCategoryComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>

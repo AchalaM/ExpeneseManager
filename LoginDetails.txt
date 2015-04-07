@@ -1,0 +1,5 @@
+Database service
+Table	userLoginInfo
+
+default user	: testuser
+password	: epicsoft

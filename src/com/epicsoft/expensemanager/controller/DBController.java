@@ -102,6 +102,20 @@ public class DBController {
         System.out.println("Table created successfuly");
     }
     
+    public void insertDefaultValuesToTables(String dbName, String user, String password) throws ClassNotFoundException, SQLException{
+        String incomeCategories = "insert into Income_item values ('Salary'),"
+                + "('Personal Savings'),"
+                + "('Part-time work'),"
+                + "('Pensions'),"
+                + "('Annuities')";
+                
+        Connection connection = DBConnection.getInstance(dbName, user, password).getConnection();
+        Statement statement = connection.createStatement();
+        
+        statement.executeUpdate(incomeCategories);
+        
+        System.out.println("Default values added to tables");
+    }
     public void dropDB(){
         
     }

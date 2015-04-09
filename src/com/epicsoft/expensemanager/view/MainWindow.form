@@ -88,7 +88,6 @@
           <Color blue="ff" green="66" red="ff" type="rgb"/>
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="text" type="java.lang.String" value="Active User"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="changeUserButton">
@@ -104,6 +103,9 @@
           <Image iconType="3" name="/com/epicsoft/expensemanager/guiImages/UserButtonBackground.png"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="changeUserButtonMouseClicked"/>
+      </Events>
     </Component>
     <Container class="javax.swing.JPanel" name="tabItemsPanel">
       <Properties>

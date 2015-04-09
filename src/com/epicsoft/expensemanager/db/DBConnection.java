@@ -52,9 +52,6 @@ public class DBConnection {
     
     /**
      * 
-     * @param JDBC_URL
-     * @param user
-     * @param password
      * @return 
      */
     public Connection getConnection(){

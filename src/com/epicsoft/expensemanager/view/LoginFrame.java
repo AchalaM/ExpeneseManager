@@ -9,13 +9,13 @@ package com.epicsoft.expensemanager.view;
 import com.epicsoft.expensemanager.controller.DBController;
 import com.epicsoft.expensemanager.db.DBConnection;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -126,13 +126,16 @@ public class LoginFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void loginButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loginButtonMouseClicked
-                                       
+            String DRIVER = "org.apache.derby.jdbc.EmbeddedDriver";
+            String DB_URL = "jdbc:derby:" + System.getProperty("user.home", ".") + "\\DB_project\\ExpenseManager\\db\\";
+                               
             MainWindow mw = new MainWindow();
             Statement statement;            
             Connection connection;
             
             try {
-                connection = DBConnection.getInstance("service", "", "").getConnection();
+                Class.forName(DRIVER);
+                connection = DriverManager.getConnection(DB_URL + "service", "", "");
                 statement = connection.createStatement();
                 ResultSet rst = statement.executeQuery("SELECT password from userLoginInfo where username='"+usernameTextField.getText()+"'");
                 if (rst.next()){
@@ -145,6 +148,7 @@ public class LoginFrame extends javax.swing.JFrame {
 
                     if (Arrays.equals(dbpw, givenpw)) {
                         this.dispose();
+                        mw.setActiveUser(usernameTextField.getText());
                         mw.setVisible(true);
                     }
                     else {

@@ -21,10 +21,26 @@ public class DBController {
         
     }
     
+    /**
+     * 
+     * @param dbName
+     * @param user
+     * @param password
+     * @throws ClassNotFoundException
+     * @throws SQLException 
+     */
     public void createDB(String dbName, String user, String password) throws ClassNotFoundException, SQLException{
         Connection connection = DBConnection.getInstance(dbName + ";create=true", user, password).getConnection();
     }
     
+    /**
+     * 
+     * @param dbName
+     * @param user
+     * @param password
+     * @throws ClassNotFoundException
+     * @throws SQLException 
+     */
     public void createTables(String dbName, String user, String password) throws ClassNotFoundException, SQLException{
         String table_useraccount = "CREATE table user_account (" +
                 "username varchar(50) NOT NULL," +
@@ -95,13 +111,33 @@ public class DBController {
         statement.executeUpdate(table_expenseCategories);
         statement.executeUpdate(table_earn);
         statement.executeUpdate(table_expend);
-        
-        
-        
-       
+
         System.out.println("Table created successfuly");
     }
     
+    /**
+     * 
+     * @param dbName
+     * @param user
+     * @param password
+     * @throws ClassNotFoundException
+     * @throws SQLException 
+     */
+    public void insertDefaultValuesToTables(String dbName, String user, String password) throws ClassNotFoundException, SQLException{
+        String incomeCategories = "insert into Income_item values ('Salary'),"
+                + "('Personal Savings'),"
+                + "('Part-time work'),"
+                + "('Pensions'),"
+                + "('Annuities')";
+                
+        Connection connection = DBConnection.getInstance(dbName, user, password).getConnection();
+        Statement statement = connection.createStatement();
+        
+        statement.executeUpdate(incomeCategories);
+        
+        System.out.println("Default values added to tables");
+    }
+        
     public void dropDB(){
         
     }

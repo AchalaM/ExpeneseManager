@@ -1,13 +1,13 @@
 ----------------------------------------------------------------
-Tue Apr 07 23:41:50 IST 2015:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.8.3.0 - (1405108): instance a816c00e-014c-9514-c78c-0000032ef328 
-on database directory C:\Users\hp\DB_project\ExpenseManager\db\testuser  with class loader sun.misc.Launcher$AppClassLoader@550a6723 
-Loaded from file:/C:/Users/hp/DB_project/ExpenseManager/lib/derby.jar
+Wed Apr 15 07:05:42 IST 2015:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.8.3.0 - (1405108): instance a816c00e-014c-bab7-ab77-0000037ba5a0 
+on database directory C:\Users\SUPUN MADUSHANKA\ExpenseManager\db\service  with class loader sun.misc.Launcher$AppClassLoader@5c647e05 
+Loaded from file:/C:/Users/SUPUN%20MADUSHANKA/ExpenseManager/lib/derby.jar
 java.vendor=Oracle Corporation
-java.runtime.version=1.7.0_51-b13
-user.dir=C:\Users\hp\DB_project\ExpenseManager
-os.name=Windows 7
+java.runtime.version=1.8.0_25-b18
+user.dir=C:\Users\SUPUN MADUSHANKA\ExpenseManager
+os.name=Windows 8
 os.arch=amd64
-os.version=6.1
+os.version=6.2
 derby.system.home=null
 Database Class Loader started - derby.database.classpath=''

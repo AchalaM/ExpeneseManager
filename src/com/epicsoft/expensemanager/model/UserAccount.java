@@ -22,6 +22,12 @@ public class UserAccount {
         return userName;
     }
 
+    public UserAccount(String userName, String Name, String currencyType) {
+        this.userName = userName;
+        this.Name = Name;
+        this.currencyType = currencyType;
+    }
+
     /**
      * @param userName the userName to set
      */

@@ -14,6 +14,11 @@ public class User {
     private String UserName;
     private String PassWord;
 
+    public User(String UserName, String PassWord) {
+        this.UserName = UserName;
+        this.PassWord = PassWord;
+    }
+
     /**
      * @return the UserName
      */

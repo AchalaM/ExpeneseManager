@@ -103,6 +103,9 @@ public class DBController {
     }
     
     public void insertDefaultValuesToTables(String dbName, String user, String password) throws ClassNotFoundException, SQLException{
+        /*
+            Add default IncomeCategories
+        */
         String incomeCategories = "insert into Income_item values ('Salary'),"
                 + "('Personal Savings'),"
                 + "('Part-time work'),"
@@ -113,6 +116,17 @@ public class DBController {
         Statement statement = connection.createStatement();
         
         statement.executeUpdate(incomeCategories);
+        
+        /*
+            Add default paymentMethods
+        */
+        String paymentMethods = "insert into Payment_Method values ('Cash'),"
+                + "('Check'),"
+                + "('Credit Card'),"
+                + "('Debit'),"
+                + "('Electronic Transfer')";
+        
+        statement.executeUpdate(paymentMethods);
         
         System.out.println("Default values added to tables");
     }

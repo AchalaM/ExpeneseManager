@@ -7,7 +7,7 @@
 package com.epicsoft.expensemanager.controller;
 
 import com.epicsoft.expensemanager.db.DBConnection;
-import com.epicsoft.expensemanager.model.IncomeCategory;
+import com.epicsoft.expensemanager.model.PaymentMethod;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -19,34 +19,33 @@ import java.util.List;
  *
  * @author DHANUSHKA
  */
-public class IncomeCategoryController {
-    
-    public static List<IncomeCategory> getAllIncomeCategory(String dbName, String user, String password) throws ClassNotFoundException, SQLException{
-        String sql = "SELECT * FROM Income_item";
+public class PaymentMethodController {
+    public static List<PaymentMethod> getAllPaymentMethods(String dbName, String user, String password) throws ClassNotFoundException, SQLException{
+        String sql = "SELECT * FROM Payment_Method";
         Connection connection = DBConnection.getInstance(dbName, user, password).getConnection();
         Statement stm = connection.createStatement();
         ResultSet rst = stm.executeQuery(sql);
         
-        List<IncomeCategory> incomeCategoryList = new ArrayList<>();
+        List<PaymentMethod> paymentMethodList = new ArrayList<>();
         
         while(rst.next()){
-            String category = rst.getString("Category");
+            String method = rst.getString("Method");
             
-            IncomeCategory incomeCategory = new IncomeCategory(category);
-            incomeCategoryList.add(incomeCategory);
+            PaymentMethod paymentMethod = new PaymentMethod(method);
+            paymentMethodList.add(paymentMethod);
         }
-        return incomeCategoryList;
+        return paymentMethodList;
     }
     
-    public static int addIncomeCategory(IncomeCategory category,String dbName, String user, String password) throws ClassNotFoundException, SQLException{
-        String sql = "INSERT INTO Income_item values('"+category.getIncomeCategory()+"')";
+    public static int addPaymentMethod(PaymentMethod method,String dbName, String user, String password) throws ClassNotFoundException, SQLException{
+        String sql = "INSERT INTO Payment_Method values('"+method.getPaymentMethod()+"')";
         Connection connection = DBConnection.getInstance(dbName, user, password).getConnection();
         Statement stm = connection.createStatement();
         return stm.executeUpdate(sql);
     }
     
-    public static int removeIncomeCategory(IncomeCategory category,String dbName, String user, String password) throws ClassNotFoundException, SQLException{
-        String sql = "DELETE FROM Income_item where Category =" + category.getIncomeCategory();
+    public static int removePaymentMethod(PaymentMethod method,String dbName, String user, String password) throws ClassNotFoundException, SQLException{
+        String sql = "DELETE FROM Payment_Method where Method =" + method.getPaymentMethod();
         Connection connection = DBConnection.getInstance(dbName, user, password).getConnection();
         Statement stm = connection.createStatement();
         return stm.executeUpdate(sql);

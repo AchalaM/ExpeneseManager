@@ -3,9 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/DHANUSHKA/ExpenseManager/src/com/epicsoft/expensemanager/db/DBConnection.java</file>
-            <file>file:/C:/Users/DHANUSHKA/ExpenseManager/src/com/epicsoft/expensemanager/controller/DBController.java</file>
-            <file>file:/C:/Users/DHANUSHKA/ExpenseManager/src/com/epicsoft/expensemanager/view/LoginFrame.java</file>
+            <file>file:/C:/Users/DHANUSHKA/DB_project/ExpenseManager/src/com/epicsoft/expensemanager/view/LoginFrame.java</file>
+            <file>file:/C:/Users/DHANUSHKA/DB_project/ExpenseManager/src/com/epicsoft/expensemanager/model/IncomeCategory.java</file>
+            <file>file:/C:/Users/DHANUSHKA/DB_project/ExpenseManager/src/com/epicsoft/expensemanager/controller/DBController.java</file>
+            <file>file:/C:/Users/DHANUSHKA/DB_project/ExpenseManager/src/com/epicsoft/expensemanager/view/AddIncomeDialogbox.java</file>
+            <file>file:/C:/Users/DHANUSHKA/DB_project/ExpenseManager/src/com/epicsoft/expensemanager/controller/IncomeCategoryController.java</file>
+            <file>file:/C:/Users/DHANUSHKA/DB_project/ExpenseManager/src/com/epicsoft/expensemanager/db/DBConnection.java</file>
         </group>
     </open-files>
 </project-private>

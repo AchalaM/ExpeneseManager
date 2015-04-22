@@ -47,7 +47,7 @@ public class ExpenseController {
      * @throws SQLException
      * @throws ClassNotFoundException
      */
-    public static List<Expend> editExpense(int date,String accountName,String RealDate) throws SQLException,ClassNotFoundException{
+    public static List<Expend> viewExpense(int date,String accountName,String RealDate) throws SQLException,ClassNotFoundException{
         int year=1,alltime=0,daly=3,monthly=2;
         
         List<Expend> expList = new ArrayList<>();
@@ -140,6 +140,24 @@ public class ExpenseController {
             System.out.println("not delete");
         }
         return 0;
+    
+    }
+    public int editExpense(Expend expense,int ID) throws ClassNotFoundException, SQLException{
+        String sql = "update expend set account='"+expense.getAccountName()+"' ,expDate='"+expense.getData()+"',ammount="+expense.getAmount()+",category='"+expense.getCategory()+"',paymentMethod='"+expense.getPaymentMothod()+"',description='"+expense.getDiscription()+"' where expIndex="+ID;
+        Connection connection = DBConnection.getInstance("testuser","testuser","epicsoft").getConnection();
+        try{
+            Statement stm = connection.createStatement();
+            int res = stm.executeUpdate(sql);
+            if(res>0){
+                return  1;
+            }
+            
+        }
+        catch(SQLException ex){
+            connection.rollback();
+            throw ex;
+        }
+        return -1;
     
     }
 }

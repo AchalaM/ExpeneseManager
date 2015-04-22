@@ -16,8 +16,9 @@ import javax.swing.JPanel;
  */
 public class MainWindow extends javax.swing.JFrame {
 
-    JLabel buttonList[];
-    JPanel panelList[];
+    private JLabel buttonList[];
+    private JPanel panelList[];
+    private String activeUser;
     /**
      * Creates new form MainWindow
      */
@@ -125,12 +126,16 @@ public class MainWindow extends javax.swing.JFrame {
         activeUserLabel.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         activeUserLabel.setForeground(new java.awt.Color(255, 102, 255));
         activeUserLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        activeUserLabel.setText("Active User");
 
         changeUserButton.setFont(new java.awt.Font("Segoe UI Semibold", 0, 12)); // NOI18N
         changeUserButton.setForeground(new java.awt.Color(255, 102, 255));
         changeUserButton.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         changeUserButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/epicsoft/expensemanager/guiImages/UserButtonBackground.png"))); // NOI18N
+        changeUserButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                changeUserButtonMouseClicked(evt);
+            }
+        });
 
         tabItemsPanel.setPreferredSize(new java.awt.Dimension(150, 669));
 
@@ -876,10 +881,19 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_addExpenseButtonMouseClicked
 
     private void addEarningButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addEarningButtonMouseClicked
-        AddIncomeDialogbox addIncome = new AddIncomeDialogbox(this, rootPaneCheckingEnabled);
+        AddIncomeDialogbox addIncome = new AddIncomeDialogbox(this, rootPaneCheckingEnabled, activeUser);
         addIncome.setVisible(true);
     }//GEN-LAST:event_addEarningButtonMouseClicked
 
+    private void changeUserButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_changeUserButtonMouseClicked
+        LoginFrame lf = new LoginFrame();
+        this.dispose();
+        lf.setVisible(true);
+    }//GEN-LAST:event_changeUserButtonMouseClicked
+
+    public void setActiveUser(String user){
+        activeUser = user;
+    }
     /**
      * @param args the command line arguments
      */
@@ -920,6 +934,7 @@ public class MainWindow extends javax.swing.JFrame {
     public void setVisible(boolean b){
         super.setVisible(b);
         this.overviewButtonMouseClicked(null);
+        activeUserLabel.setText(activeUser);
     }
     /**
      * Change the button images and set visible the selected panel.

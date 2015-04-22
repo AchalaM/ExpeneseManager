@@ -12,10 +12,11 @@ package com.epicsoft.expensemanager.model;
  */
 public class Income {
     private String AccountName;
-    private String Data; 
+    private String Date; 
     private String Category;
     private double amount;
-    private String discription;
+    private String description;
+    private String paymentMethod;
 
     /**
      * @return the AccountName
@@ -32,17 +33,17 @@ public class Income {
     }
 
     /**
-     * @return the Data
+     * @return the Date
      */
-    public String getData() {
-        return Data;
+    public String getDate() {
+        return Date;
     }
 
     /**
-     * @param Data the Data to set
+     * @param Date the Date to set
      */
-    public void setData(String Data) {
-        this.Data = Data;
+    public void setDate(String Date) {
+        this.Date = Date;
     }
 
     /**
@@ -74,16 +75,24 @@ public class Income {
     }
 
     /**
-     * @return the discription
+     * @return the description
      */
-    public String getDiscription() {
-        return discription;
+    public String getDescription() {
+        return description;
     }
 
     /**
-     * @param discription the discription to set
+     * @param description the description to set
      */
-    public void setDiscription(String discription) {
-        this.discription = discription;
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getPaymentMethod() {
+        return paymentMethod;
+    }
+
+    public void setPaymentMethod(String paymentMethod) {
+        this.paymentMethod = paymentMethod;
     }
 }

@@ -1,11 +1,11 @@
 ----------------------------------------------------------------
-Fri Apr 17 12:45:37 IST 2015:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.8.3.0 - (1405108): instance a816c00e-014c-c63b-9cac-000002ccf6e8 
-on database directory C:\Users\DHANUSHKA\DB_project\ExpenseManager\db\service  with class loader sun.misc.Launcher$AppClassLoader@65e73498 
-Loaded from file:/C:/Users/DHANUSHKA/DB_project/ExpenseManager/lib/derby.jar
+Wed Apr 22 20:15:58 IST 2015:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.8.3.0 - (1405108): instance a816c00e-014c-e197-b3f9-000002cdd5e0 
+on database directory C:\Users\DHANUSHKA\DB_project\ExpenseManager\db\service  with class loader sun.misc.Launcher$AppClassLoader@1e66a917 
+Loaded from file:/C:/Users/DHANUSHKA/ExpenseManager/lib/derby.jar
 java.vendor=Oracle Corporation
 java.runtime.version=1.7.0_45-b18
-user.dir=C:\Users\DHANUSHKA\DB_project\ExpenseManager
+user.dir=C:\Users\DHANUSHKA\ExpenseManager
 os.name=Windows 7
 os.arch=amd64
 os.version=6.1

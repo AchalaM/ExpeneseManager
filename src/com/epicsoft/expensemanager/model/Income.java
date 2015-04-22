@@ -17,6 +17,14 @@ public class Income {
     private double amount;
     private String discription;
 
+    public Income(String AccountName, String Data, String Category, double amount, String discription) {
+        this.AccountName = AccountName;
+        this.Data = Data;
+        this.Category = Category;
+        this.amount = amount;
+        this.discription = discription;
+    }
+
     /**
      * @return the AccountName
      */

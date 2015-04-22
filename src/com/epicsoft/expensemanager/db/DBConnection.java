@@ -20,7 +20,7 @@ public class DBConnection {
     private Connection connection;
     
     private static final String DRIVER = "org.apache.derby.jdbc.EmbeddedDriver";
-    private static final String DB_URL = "jdbc:derby:" + System.getProperty("user.home", ".") + "\\DB_project\\ExpenseManager\\db\\";
+    private static final String DB_URL = "jdbc:derby:" + System.getProperty("user.home", ".") + "\\ExpenseManager\\db\\";
     
     /**
      * @param JDBC_URL

@@ -14,6 +14,13 @@ public class Account {
     
     private String AccountName;
     private String accountType;
+
+    public Account(String AccountName, String accountType, double initialBalance, String accountNumber) {
+        this.AccountName = AccountName;
+        this.accountType = accountType;
+        this.initialBalance = initialBalance;
+        this.accountNumber = accountNumber;
+    }
     private double initialBalance;
     private String accountNumber;
 

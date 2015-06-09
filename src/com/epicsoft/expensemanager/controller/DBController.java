@@ -63,7 +63,7 @@ public class DBController {
                 ")";
                 
         String table_expenseItem = "create table Expense_item(" +
-                "category varchar(20)," +
+                "category varchar(20)," + 
                 "PRIMARY KEY(category)" +
                 ")";
                 

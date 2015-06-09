@@ -18,6 +18,15 @@ public class Income {
     private String description;
     private String paymentMethod;
 
+
+    public Income(String AccountName, String Date, String Category, double amount, String description) {
+        this.AccountName = AccountName;
+        this.Date = Date;
+        this.Category = Category;
+        this.amount = amount;
+        this.description = description;
+    }
+
     /**
      * @return the AccountName
      */

@@ -19,9 +19,10 @@ public class DBConnection {
     private static DBConnection dBConnection;
     private Connection connection;
     
+
     private static final String DRIVER = "com.mysql.jdbc.Driver";
     private static final String DB_URL = "jdbc:mysql://localhost/ExpenseManager";
-    
+
     /**
      * @param JDBC_URL
      * @param user

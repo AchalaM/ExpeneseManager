@@ -20,6 +20,7 @@ import java.util.ArrayList;
  * @author SUPUN MADUSHANKA
  */
 public class ExpenseController {
+
     /**
      * 
      * @param user
@@ -32,6 +33,7 @@ public class ExpenseController {
     
         String sql = "insert into expend values('"+expense.getAccountName()+"','"+expense.getData()+"',"+expense.getAmount()+",'"+expense.getCategory()+"','"+expense.getPaymentMothod()+"','"+expense.getDiscription()+"')";
         Connection connection = DBConnection.getInstance().getConnection();
+
         try{
             Statement stm = connection.createStatement();
             int res = stm.executeUpdate(sql);
@@ -49,22 +51,32 @@ public class ExpenseController {
 
     /**
      *
+
      * @param user
      * @param date
      * @param accountName
      * @param RealDate
+
+     * @param date
+     * @param accountName
+
      * @return
      * @throws SQLException
      * @throws ClassNotFoundException
      */
+
     public static List<Expend> viewExpense(String user, int date,String accountName,String RealDate) throws SQLException,ClassNotFoundException{
+
+
         int year=1,alltime=0,daly=3,monthly=2;
         
         List<Expend> expList = new ArrayList<>();
         try{
         if(date==alltime){
             String sql="select *from expend";
+
             Connection connection = DBConnection.getInstance().getConnection();
+
             Statement stm = connection.createStatement();
             ResultSet rst = stm.executeQuery(sql);
             while (rst.next()) {
@@ -81,7 +93,9 @@ public class ExpenseController {
         }
         if(date==year){
             String sql="select * from (select DATEPART(yyyy,expDate) as yearCol from expend)where yearCol ="+RealDate;
+
             Connection connection = DBConnection.getInstance().getConnection();
+
             Statement stm = connection.createStatement();
             ResultSet rst = stm.executeQuery(sql);
             while (rst.next()) {
@@ -97,7 +111,9 @@ public class ExpenseController {
         }
         if(date==monthly){
             String sql="select * from (select DATEPART(mm,expDate) as monthCol from expend) where monthCol="+RealDate ;
+
             Connection connection = DBConnection.getInstance().getConnection();
+
             Statement stm = connection.createStatement();
             ResultSet rst = stm.executeQuery(sql);
             while (rst.next()) {
@@ -113,7 +129,9 @@ public class ExpenseController {
         }
         if(date==daly){
             String sql="select *from expend where expDate='"+RealDate+"'";
+
             Connection connection = DBConnection.getInstance().getConnection();
+
             Statement stm = connection.createStatement();
             ResultSet rst = stm.executeQuery(sql);
             while (rst.next()) {
@@ -133,6 +151,7 @@ public class ExpenseController {
         }
         
         return expList;
+
     }
     
     /**
@@ -143,10 +162,13 @@ public class ExpenseController {
      * @throws ClassNotFoundException
      * @throws SQLException 
      */
-    public int deleteExpense(String user, Expend exp) throws ClassNotFoundException, SQLException{
+    
+    
+    public int deleteExpense(Expend exp) throws ClassNotFoundException, SQLException{
         
         String sql="DELETE from expend where account='"+exp.getAccountName()+"',expDate='"+exp.getData()+"',amount="+exp.getAmount()+",category='"+exp.getCategory()+"',paymentMethod='"+exp.getPaymentMothod()+"',description='"+exp.getDiscription()+"'";
         Connection connection = DBConnection.getInstance().getConnection();
+
         try{
             
             Statement stm = connection.createStatement();
@@ -159,6 +181,26 @@ public class ExpenseController {
         return 0;
     
     }
+
+    public int editExpense(Expend expense,int ID) throws ClassNotFoundException, SQLException{
+        String sql = "update expend set account='"+expense.getAccountName()+"' ,expDate='"+expense.getData()+"',ammount="+expense.getAmount()+",category='"+expense.getCategory()+"',paymentMethod='"+expense.getPaymentMothod()+"',description='"+expense.getDiscription()+"' where expIndex="+ID;
+        Connection connection = DBConnection.getInstance().getConnection();
+        try{
+            Statement stm = connection.createStatement();
+            int res = stm.executeUpdate(sql);
+            if(res>0){
+                return  1;
+            }
+            
+        }
+        catch(SQLException ex){
+            connection.rollback();
+            throw ex;
+        }
+        return -1;
+    
+    }
+    
 }
     
     

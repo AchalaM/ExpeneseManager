@@ -28,6 +28,7 @@ public class LoginFrame extends javax.swing.JFrame {
      */
     public LoginFrame() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -59,6 +60,11 @@ public class LoginFrame extends javax.swing.JFrame {
         jLabel2.setText("Password");
 
         passwordField.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        passwordField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                passwordFieldKeyTyped(evt);
+            }
+        });
 
         loginButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/epicsoft/expensemanager/guiImages/LoginInactive.png"))); // NOI18N
         loginButton.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -68,10 +74,8 @@ public class LoginFrame extends javax.swing.JFrame {
         });
 
         newUserButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/epicsoft/expensemanager/guiImages/NewUser.png"))); // NOI18N
-        newUserButton.setPreferredSize(new java.awt.Dimension(90, 25));
 
         cancelButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/epicsoft/expensemanager/guiImages/LoginCancel.png"))); // NOI18N
-        cancelButton.setPreferredSize(new java.awt.Dimension(90, 25));
 
         errorMsgLabel.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         errorMsgLabel.setForeground(new java.awt.Color(255, 0, 0));
@@ -88,7 +92,7 @@ public class LoginFrame extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(cancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(newUserButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(newUserButton))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
@@ -117,8 +121,8 @@ public class LoginFrame extends javax.swing.JFrame {
                 .addComponent(loginButton, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(newUserButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cancelButton)
+                    .addComponent(newUserButton))
                 .addContainerGap(18, Short.MAX_VALUE))
         );
 
@@ -168,6 +172,10 @@ public class LoginFrame extends javax.swing.JFrame {
                 Logger.getLogger(LoginFrame.class.getName()).log(Level.SEVERE, null, ex);
             }            
     }//GEN-LAST:event_loginButtonMouseClicked
+
+    private void passwordFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passwordFieldKeyTyped
+        loginButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/epicsoft/expensemanager/guiImages/LoginActive.png")));
+    }//GEN-LAST:event_passwordFieldKeyTyped
 
     /**
      * @param args the command line arguments

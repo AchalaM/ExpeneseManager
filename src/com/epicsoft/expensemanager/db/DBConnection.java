@@ -19,8 +19,8 @@ public class DBConnection {
     private static DBConnection dBConnection;
     private Connection connection;
     
-    private static final String DRIVER = "org.apache.derby.jdbc.EmbeddedDriver";
-    private static final String DB_URL = "jdbc:derby:" + System.getProperty("user.home", ".") + "\\DB_project\\ExpenseManager\\db\\";
+    private static final String DRIVER = "com.mysql.jdbc.Driver";
+    private static final String DB_URL = "jdbc:mysql://localhost/ExpenseManager";
     
     /**
      * @param JDBC_URL
@@ -29,9 +29,9 @@ public class DBConnection {
      * @throws ClassNotFoundException
      * @throws SQLException 
      */
-    private DBConnection(String JDBC_URL, String user, String password) throws ClassNotFoundException, SQLException{
+    private DBConnection() throws ClassNotFoundException, SQLException{
         Class.forName(DRIVER);
-        connection = DriverManager.getConnection(DB_URL + JDBC_URL, user, password);
+        connection = DriverManager.getConnection(DB_URL, "root", "mrt");
     }
     
     /**
@@ -43,9 +43,9 @@ public class DBConnection {
      * @throws ClassNotFoundException
      * @throws SQLException 
      */
-    public static DBConnection getInstance(String JDBC_URL, String user, String password) throws ClassNotFoundException, SQLException{
+    public static DBConnection getInstance() throws ClassNotFoundException, SQLException{
         if (dBConnection == null) {
-            dBConnection = new DBConnection(JDBC_URL, user, password);
+            dBConnection = new DBConnection();
         }
         return dBConnection;
     }

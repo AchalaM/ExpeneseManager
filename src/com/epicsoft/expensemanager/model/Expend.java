@@ -18,6 +18,16 @@ public class Expend {
     private double amount;
     private String discription;
 
+    public Expend(String paymentMothod, String AccountName, String Data, String Category, double amount, String discription) {
+        this.paymentMothod = paymentMothod;
+        this.AccountName = AccountName;
+        this.Data = Data;
+        this.Category = Category;
+        this.amount = amount;
+        this.discription = discription;
+    }
+
+    
     /**
      * @return the paymentMothod
      */

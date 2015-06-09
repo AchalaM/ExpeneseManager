@@ -6,18 +6,38 @@
 
 package com.epicsoft.expensemanager.view;
 
+import com.epicsoft.expensemanager.controller.ExpenseCategoryController;
+import com.epicsoft.expensemanager.controller.PaymentMethodController;
+import com.epicsoft.expensemanager.model.PaymentMethod;
+import com.epicsoft.expensemanager.model.ExpenseItem;
+import com.epicsoft.expensemanager.model.ExpenseCategory;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author hp
  */
 public class AddExpenseDialogbox extends javax.swing.JDialog {
-
+    private static String user;
     /**
      * Creates new form NewJDialog
      */
-    public AddExpenseDialogbox(java.awt.Frame parent, boolean modal) {
+    public AddExpenseDialogbox(String user, java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        this.user = user;
+        
+        try {
+            fillPaymentMethodComboBox();
+            fillExpenseItemsComboBox();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(AddExpenseDialogbox.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(AddExpenseDialogbox.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -36,15 +56,16 @@ public class AddExpenseDialogbox extends javax.swing.JDialog {
         amountLabel = new javax.swing.JLabel();
         amountTextField = new javax.swing.JTextField();
         categoryLabel = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox();
+        categoryComboBox = new javax.swing.JComboBox();
         paymentMethodLabel = new javax.swing.JLabel();
-        jComboBox3 = new javax.swing.JComboBox();
+        paymentMethodComboBox = new javax.swing.JComboBox();
         descriptionLabel = new javax.swing.JLabel();
         descriptionTextField = new javax.swing.JTextField();
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
         saveButton = new javax.swing.JLabel();
         saveAndNewButton = new javax.swing.JLabel();
         cancelButton = new javax.swing.JLabel();
+        subcategoryComboBox = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Add Expense");
@@ -63,12 +84,12 @@ public class AddExpenseDialogbox extends javax.swing.JDialog {
         categoryLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         categoryLabel.setText("Category");
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        categoryComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         paymentMethodLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         paymentMethodLabel.setText("Payment Method");
 
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        paymentMethodComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         descriptionLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         descriptionLabel.setText("Description");
@@ -90,6 +111,8 @@ public class AddExpenseDialogbox extends javax.swing.JDialog {
             }
         });
 
+        subcategoryComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -106,13 +129,16 @@ public class AddExpenseDialogbox extends javax.swing.JDialog {
                             .addComponent(descriptionLabel)
                             .addComponent(dateLabel))
                         .addGap(30, 30, 30)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(descriptionTextField)
                             .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
                             .addComponent(amountTextField)
-                            .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jComboBox3, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(paymentMethodComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(categoryComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(subcategoryComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(saveButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(25, 25, 25)
@@ -139,11 +165,12 @@ public class AddExpenseDialogbox extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(categoryLabel)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(categoryComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(subcategoryComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(paymentMethodLabel)
-                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(paymentMethodComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -164,7 +191,31 @@ public class AddExpenseDialogbox extends javax.swing.JDialog {
     private void cancelButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cancelButtonMouseClicked
         this.dispose();
     }//GEN-LAST:event_cancelButtonMouseClicked
-
+    
+    /**
+     * 
+     * @throws ClassNotFoundException
+     * @throws SQLException 
+     */
+    private void fillPaymentMethodComboBox() throws ClassNotFoundException, SQLException{
+        PaymentMethodController pmc = new PaymentMethodController();
+        List<PaymentMethod> paymentMethods = pmc.getAllPaymentMethods(user, "", "");
+        paymentMethodComboBox.removeAllItems();
+        
+        for (PaymentMethod paym : paymentMethods) {
+            paymentMethodComboBox.addItem(paym);
+        }
+    }
+    
+    private void fillExpenseItemsComboBox() throws ClassNotFoundException, SQLException{
+        ExpenseCategoryController ecc = new ExpenseCategoryController();
+        List<ExpenseItem> expenseItem = ecc.getAllExpenseItems(user, "", "");
+        categoryComboBox.removeAllItems();
+        
+        for (ExpenseItem expI : expenseItem) {
+            categoryComboBox.addItem(expI);
+        }
+    }
     /**
      * @param args the command line arguments
      */
@@ -195,7 +246,7 @@ public class AddExpenseDialogbox extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                AddExpenseDialogbox dialog = new AddExpenseDialogbox(new javax.swing.JFrame(), true);
+                AddExpenseDialogbox dialog = new AddExpenseDialogbox(user, new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -212,17 +263,18 @@ public class AddExpenseDialogbox extends javax.swing.JDialog {
     private javax.swing.JLabel amountLabel;
     private javax.swing.JTextField amountTextField;
     private javax.swing.JLabel cancelButton;
+    private javax.swing.JComboBox categoryComboBox;
     private javax.swing.JLabel categoryLabel;
     private org.jdatepicker.impl.DateComponentFormatter dateComponentFormatter1;
     private javax.swing.JLabel dateLabel;
     private javax.swing.JLabel descriptionLabel;
     private javax.swing.JTextField descriptionTextField;
     private javax.swing.JComboBox jComboBox1;
-    private javax.swing.JComboBox jComboBox2;
-    private javax.swing.JComboBox jComboBox3;
     private com.toedter.calendar.JDateChooser jDateChooser1;
+    private javax.swing.JComboBox paymentMethodComboBox;
     private javax.swing.JLabel paymentMethodLabel;
     private javax.swing.JLabel saveAndNewButton;
     private javax.swing.JLabel saveButton;
+    private javax.swing.JComboBox subcategoryComboBox;
     // End of variables declaration//GEN-END:variables
 }

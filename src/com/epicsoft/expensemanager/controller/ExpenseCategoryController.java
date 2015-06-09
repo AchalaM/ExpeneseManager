@@ -7,7 +7,7 @@
 package com.epicsoft.expensemanager.controller;
 
 import com.epicsoft.expensemanager.db.DBConnection;
-import com.epicsoft.expensemanager.model.IncomeCategory;
+import com.epicsoft.expensemanager.model.ExpenseItem;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -17,25 +17,25 @@ import java.util.List;
 
 /**
  *
- * @author DHANUSHKA
+ * @author SUPUN MADUSHANKA
  */
-public class IncomeCategoryController {
+public class ExpenseCategoryController {
     
-    public List<IncomeCategory> getAllIncomeCategory(String dbName, String user, String password ) throws ClassNotFoundException, SQLException{
-        String sql = "SELECT * FROM Income_item";
+    public List<ExpenseItem> getAllExpenseItems(String dbName, String user, String password ) throws ClassNotFoundException, SQLException{
+        String sql = "SELECT * FROM Expense_item";
         Connection connection = DBConnection.getInstance().getConnection();
         Statement stm = connection.createStatement();
 
         ResultSet rst = stm.executeQuery(sql);
         
-        List<IncomeCategory> incomeCategoryList = new ArrayList<>();
+        List<ExpenseItem> expenseItemList = new ArrayList<>();
         
         while(rst.next()){
             String category = rst.getString("category");
             
-            IncomeCategory incomeCategory = new IncomeCategory(category);
-            incomeCategoryList.add(incomeCategory);
+            ExpenseItem expenseItem = new ExpenseItem(category);
+            expenseItemList.add(expenseItem);
         }
-        return incomeCategoryList;
+        return expenseItemList;
     }
 }

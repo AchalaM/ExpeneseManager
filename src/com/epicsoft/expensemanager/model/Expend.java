@@ -11,15 +11,15 @@ package com.epicsoft.expensemanager.model;
  * @author SUPUN MADUSHANKA
  */
 public class Expend {
-    private String paymentMothod;
+    private String paymentMethod;
     private String AccountName;
     private String Data; 
     private String Category;
     private double amount;
     private String discription;
 
-    public Expend(String paymentMothod, String AccountName, String Data, String Category, double amount, String discription) {
-        this.paymentMothod = paymentMothod;
+    public Expend(String paymentMethod, String AccountName, String Data, String Category, double amount, String discription) {
+        this.paymentMethod = paymentMethod;
         this.AccountName = AccountName;
         this.Data = Data;
         this.Category = Category;
@@ -31,14 +31,14 @@ public class Expend {
      * @return the paymentMothod
      */
     public String getPaymentMothod() {
-        return paymentMothod;
+        return paymentMethod;
     }
 
     /**
      * @param paymentMothod the paymentMothod to set
      */
     public void setPaymentMothod(String paymentMothod) {
-        this.paymentMothod = paymentMothod;
+        this.paymentMethod = paymentMothod;
     }
 
     /**

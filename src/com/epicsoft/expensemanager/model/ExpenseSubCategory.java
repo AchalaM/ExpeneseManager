@@ -12,7 +12,7 @@ package com.epicsoft.expensemanager.model;
  */
 public class ExpenseSubCategory {
     private String subCatogory;
-
+    
     public ExpenseSubCategory(String subCatogory) {
         this.subCatogory = subCatogory;
     }

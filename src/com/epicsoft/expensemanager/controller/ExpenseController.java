@@ -161,9 +161,26 @@ public class ExpenseController {
     
     }
     
-}
+    public  ResultSet searchExpense(String column,String Value) throws ClassNotFoundException, SQLException {
+        Expend expens;
+        String sql= "select * from expend where"+ column+"="+Value;
+        Connection connection = DBConnection.getInstance("testuser","testuser","epicsoft").getConnection();
+        try{
+            Statement stm = connection.createStatement();
+            ResultSet resultSet=stm.executeQuery(sql);
+            
+            return resultSet;
+            
+        }
+        catch(SQLException ex){
+            connection.rollback();
+            throw ex;
+        }
+        
+    }
     
     
+    
+}  
     
 
-        

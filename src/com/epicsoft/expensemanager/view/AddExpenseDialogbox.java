@@ -6,18 +6,55 @@
 
 package com.epicsoft.expensemanager.view;
 
+import com.epicsoft.expensemanager.model.*;
+import com.epicsoft.expensemanager.controller.*;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author hp
  */
 public class AddExpenseDialogbox extends javax.swing.JDialog {
-
+    private String paymentMothod;
+    private String AccountName;
+    private String Data; 
+    private String Category;
+    private double amount;
+    private String discription;
+    
     /**
      * Creates new form NewJDialog
      */
     public AddExpenseDialogbox(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        
+        
+    }
+    public void addToValueForAccountComboBox() throws ClassNotFoundException, SQLException{
+        
+    }
+    public void addToValueForCategoryComboBox() throws ClassNotFoundException, SQLException{
+        ExpenseCategoryController expCatCon=new ExpenseCategoryController();
+        
+        List<ExpenseCatergory> expCat=expCatCon.vieWExpenseCategoryController();
+        for (ExpenseCatergory expenseCatergory : expCat) {
+            jComboBox2.addItem(expenseCatergory.getCatergory());
+        }
+    }
+    public void addToValueForSubCategoryComboBox() throws ClassNotFoundException, SQLException{
+        ExpenseSubCatogoryController expCatCon=new ExpenseSubCatogoryController();
+        ExpenseCatergory Category=new ExpenseCatergory((String) jComboBox3.getSelectedItem());
+        List<ExpenseSubCategory> expCat=expCatCon.vieWExpenseCategoryController(Category);
+        for (ExpenseSubCategory expenseCatergory : expCat) {
+            ComboBoxSubCategory.addItem(expenseCatergory.getSubCatogory());
+        }
+        
+    }
+    public void addToValueForPaymentMethodComboBox() throws ClassNotFoundException, SQLException{
+        
     }
 
     /**
@@ -45,6 +82,7 @@ public class AddExpenseDialogbox extends javax.swing.JDialog {
         saveButton = new javax.swing.JLabel();
         saveAndNewButton = new javax.swing.JLabel();
         cancelButton = new javax.swing.JLabel();
+        ComboBoxSubCategory = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Add Expense");
@@ -53,6 +91,11 @@ public class AddExpenseDialogbox extends javax.swing.JDialog {
         accLabel.setText("Account");
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jComboBox1MouseClicked(evt);
+            }
+        });
 
         dateLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         dateLabel.setText("Date");
@@ -60,26 +103,64 @@ public class AddExpenseDialogbox extends javax.swing.JDialog {
         amountLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         amountLabel.setText("Amount");
 
+        amountTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                amountTextFieldActionPerformed(evt);
+            }
+        });
+
         categoryLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         categoryLabel.setText("Category");
 
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jComboBox2MouseClicked(evt);
+            }
+        });
 
         paymentMethodLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         paymentMethodLabel.setText("Payment Method");
 
         jComboBox3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jComboBox3MouseClicked(evt);
+            }
+        });
 
         descriptionLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         descriptionLabel.setText("Description");
 
+        descriptionTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                descriptionTextFieldActionPerformed(evt);
+            }
+        });
+
+        jDateChooser1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jDateChooser1MouseClicked(evt);
+            }
+        });
+
         saveButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/epicsoft/expensemanager/guiImages/SaveInactive.png"))); // NOI18N
         saveButton.setText("jLabel7");
         saveButton.setPreferredSize(new java.awt.Dimension(90, 30));
+        saveButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                saveButtonMouseClicked(evt);
+            }
+        });
 
         saveAndNewButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/epicsoft/expensemanager/guiImages/Save&NewInactive.png"))); // NOI18N
         saveAndNewButton.setText("jLabel8");
         saveAndNewButton.setPreferredSize(new java.awt.Dimension(90, 30));
+        saveAndNewButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                saveAndNewButtonMouseClicked(evt);
+            }
+        });
 
         cancelButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/epicsoft/expensemanager/guiImages/CancelActive.png"))); // NOI18N
         cancelButton.setText("jLabel9");
@@ -87,6 +168,18 @@ public class AddExpenseDialogbox extends javax.swing.JDialog {
         cancelButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 cancelButtonMouseClicked(evt);
+            }
+        });
+
+        ComboBoxSubCategory.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        ComboBoxSubCategory.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ComboBoxSubCategoryMouseClicked(evt);
+            }
+        });
+        ComboBoxSubCategory.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ComboBoxSubCategoryActionPerformed(evt);
             }
         });
 
@@ -106,13 +199,16 @@ public class AddExpenseDialogbox extends javax.swing.JDialog {
                             .addComponent(descriptionLabel)
                             .addComponent(dateLabel))
                         .addGap(30, 30, 30)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(descriptionTextField)
                             .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
                             .addComponent(amountTextField)
-                            .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jComboBox3, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(jComboBox3, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(ComboBoxSubCategory, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(saveButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(25, 25, 25)
@@ -139,7 +235,8 @@ public class AddExpenseDialogbox extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(categoryLabel)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ComboBoxSubCategory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(paymentMethodLabel)
@@ -164,6 +261,70 @@ public class AddExpenseDialogbox extends javax.swing.JDialog {
     private void cancelButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cancelButtonMouseClicked
         this.dispose();
     }//GEN-LAST:event_cancelButtonMouseClicked
+
+    private void amountTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_amountTextFieldActionPerformed
+        // TODO add your handling code here:
+        amount=Integer.parseInt(amountTextField.getText());
+    }//GEN-LAST:event_amountTextFieldActionPerformed
+
+    private void descriptionTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_descriptionTextFieldActionPerformed
+        // TODO add your handling code here:
+        discription=descriptionTextField.getText();
+    }//GEN-LAST:event_descriptionTextFieldActionPerformed
+
+    private void jComboBox1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBox1MouseClicked
+        // TODO add your handling code here:
+        AccountName=(String) jComboBox1.getSelectedItem();
+        
+    }//GEN-LAST:event_jComboBox1MouseClicked
+
+    private void jDateChooser1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jDateChooser1MouseClicked
+        // TODO add your handling code here:
+        Data=jDateChooser1.getDateFormatString();
+    }//GEN-LAST:event_jDateChooser1MouseClicked
+
+    private void jComboBox2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBox2MouseClicked
+        // TODO add your handling code here:
+        Category=(String) jComboBox2.getSelectedItem();
+    }//GEN-LAST:event_jComboBox2MouseClicked
+
+    private void jComboBox3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBox3MouseClicked
+        // TODO add your handling code here:
+        paymentMothod=(String) jComboBox3.getSelectedItem();
+    }//GEN-LAST:event_jComboBox3MouseClicked
+
+    private void saveButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_saveButtonMouseClicked
+        // TODO add your handling code here:
+        Expend newExpense=new Expend(paymentMothod, AccountName,  Data,  Category,amount, discription);
+        ExpenseController newExpController=new ExpenseController();
+        try {
+            newExpController.addExpenses(newExpense);
+        }
+        catch(Exception e){
+        
+        }
+    }//GEN-LAST:event_saveButtonMouseClicked
+
+    private void saveAndNewButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_saveAndNewButtonMouseClicked
+        // TODO add your handling code here:
+        Expend newExpense=new Expend(paymentMothod, AccountName,  Data,  Category,amount, discription);
+        ExpenseController newExpController=new ExpenseController();
+        try {
+            newExpController.addExpenses(newExpense);
+            
+        }
+        catch(Exception e){
+        
+        }
+    }//GEN-LAST:event_saveAndNewButtonMouseClicked
+
+    private void ComboBoxSubCategoryMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ComboBoxSubCategoryMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ComboBoxSubCategoryMouseClicked
+
+    private void ComboBoxSubCategoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboBoxSubCategoryActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ComboBoxSubCategoryActionPerformed
 
     /**
      * @param args the command line arguments
@@ -208,6 +369,7 @@ public class AddExpenseDialogbox extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox ComboBoxSubCategory;
     private javax.swing.JLabel accLabel;
     private javax.swing.JLabel amountLabel;
     private javax.swing.JTextField amountTextField;

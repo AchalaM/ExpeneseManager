@@ -8,6 +8,7 @@ package com.epicsoft.expensemanager.main;
 
 import com.epicsoft.expensemanager.controller.DBController;
 import com.epicsoft.expensemanager.db.DBConnection;
+import com.epicsoft.expensemanager.view.LoginFrame;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -20,7 +21,7 @@ import java.util.logging.Logger;
 public class Main {
     
     public static void main(String args[]) {
-
+        /*
         DBController dbCon = new DBController();
         try {
             dbCon.createTables();
@@ -30,6 +31,10 @@ public class Main {
                 System.out.println("No database found");
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
+                */
+        
+        LoginFrame loginframe = new LoginFrame();
+        loginframe.setVisible(true);
     }
     
 }

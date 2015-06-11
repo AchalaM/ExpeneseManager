@@ -7,7 +7,11 @@
 package com.epicsoft.expensemanager.view;
 
 import com.epicsoft.expensemanager.controller.DBController;
+import com.epicsoft.expensemanager.controller.PasswordHashing;
+import com.epicsoft.expensemanager.controller.UserController;
 import com.epicsoft.expensemanager.db.DBConnection;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -22,13 +26,14 @@ import java.util.logging.Logger;
  * @author hp
  */
 public class LoginFrame extends javax.swing.JFrame {
-
+    UserController usercontroller;
     /**
      * Creates new form NewJFrame
      */
     public LoginFrame() {
         initComponents();
         setLocationRelativeTo(null);
+        usercontroller = new UserController();
     }
 
     /**
@@ -50,6 +55,7 @@ public class LoginFrame extends javax.swing.JFrame {
         errorMsgLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Log in");
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel1.setText("Username");
@@ -74,6 +80,11 @@ public class LoginFrame extends javax.swing.JFrame {
         });
 
         newUserButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/epicsoft/expensemanager/guiImages/NewUser.png"))); // NOI18N
+        newUserButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                newUserButtonMouseClicked(evt);
+            }
+        });
 
         cancelButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/epicsoft/expensemanager/guiImages/LoginCancel.png"))); // NOI18N
 
@@ -130,52 +141,40 @@ public class LoginFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void loginButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loginButtonMouseClicked
-            String DRIVER = "org.apache.derby.jdbc.EmbeddedDriver";
-            String DB_URL = "jdbc:derby:" + System.getProperty("user.home", ".") + "\\DB_project\\ExpenseManager\\db\\";
-                               
-            MainWindow mw = new MainWindow();
-            Statement statement;            
-            Connection connection;
-            
-            try {
-                Class.forName(DRIVER);
-                connection = DriverManager.getConnection(DB_URL + "service", "", "");
-                statement = connection.createStatement();
-                ResultSet rst = statement.executeQuery("SELECT password from userLoginInfo where username='"+usernameTextField.getText()+"'");
-                if (rst.next()){
-                    String pw;
-
-                    pw = rst.getString("password");
-
-                    char[] dbpw = pw.toCharArray();
-                    char[] givenpw = passwordField.getPassword();
-
-                    if (Arrays.equals(dbpw, givenpw)) {
-                        this.dispose();
-                        mw.setActiveUser(usernameTextField.getText());
-                        mw.setVisible(true);
-                    }
-                    else {
-                        errorMsgLabel.setText("Invalid User Name of Password");
-                        usernameTextField.setText("");
-                        passwordField.setText("");
-                    }
-                }
-                else {
-                    errorMsgLabel.setText("Invalid User Name of Password");
-                    usernameTextField.setText("");
-                    passwordField.setText("");
-                }
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(LoginFrame.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (SQLException ex) {
-                Logger.getLogger(LoginFrame.class.getName()).log(Level.SEVERE, null, ex);
-            }            
+        String username = usernameTextField.getText();
+        String typedPassword = passwordField.getPassword().toString();
+        
+        try {
+            String hashedPassword = PasswordHashing.createHash(typedPassword);
+                        
+            if (PasswordHashing.validatePassword(typedPassword, hashedPassword)) {
+                MainWindow mw = new MainWindow();
+                this.dispose();
+                mw.setActiveUser(usernameTextField.getText());
+                mw.setVisible(true);
+            }
+            else {
+            errorMsgLabel.setText("Invalid Username or Password");
+            usernameTextField.setText("");
+            passwordField.setText("");
+            }
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(LoginFrame.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InvalidKeySpecException ex) {
+            Logger.getLogger(LoginFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+                
     }//GEN-LAST:event_loginButtonMouseClicked
 
     private void passwordFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passwordFieldKeyTyped
         loginButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/epicsoft/expensemanager/guiImages/LoginActive.png")));
     }//GEN-LAST:event_passwordFieldKeyTyped
+
+    private void newUserButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_newUserButtonMouseClicked
+        NewUserFrame newUserForm = new NewUserFrame();
+        this.dispose();
+        newUserForm.setVisible(true);
+    }//GEN-LAST:event_newUserButtonMouseClicked
 
     /**
      * @param args the command line arguments

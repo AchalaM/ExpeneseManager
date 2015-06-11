@@ -14,20 +14,23 @@ public class UserAccount {
     private String userName;
     private String Name;
     private String currencyType;
+    private String currencySymbol;
 
+
+    public UserAccount(String userName, String Name, String currencyType, String currencySymbol) {
+        this.userName = userName;
+        this.Name = Name;
+        this.currencyType = currencyType;
+        this.currencySymbol = currencySymbol;
+    }
+    
     /**
      * @return the userName
      */
     public String getUserName() {
         return userName;
     }
-
-    public UserAccount(String userName, String Name, String currencyType) {
-        this.userName = userName;
-        this.Name = Name;
-        this.currencyType = currencyType;
-    }
-
+    
     /**
      * @param userName the userName to set
      */
@@ -47,5 +50,33 @@ public class UserAccount {
      */
     public void setName(String Name) {
         this.Name = Name;
+    }
+
+    /**
+     * @return the currencyType
+     */
+    public String getCurrencyType() {
+        return currencyType;
+    }
+
+    /**
+     * @param currencyType the currencyType to set
+     */
+    public void setCurrencyType(String currencyType) {
+        this.currencyType = currencyType;
+    }
+
+    /**
+     * @return the currencySymbol
+     */
+    public String getCurrencySymbol() {
+        return currencySymbol;
+    }
+
+    /**
+     * @param currencySymbol the currencySymbol to set
+     */
+    public void setCurrencySymbol(String currencySymbol) {
+        this.currencySymbol = currencySymbol;
     }
 }

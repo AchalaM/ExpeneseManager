@@ -8,12 +8,16 @@ package com.epicsoft.expensemanager.view;
 
 import com.epicsoft.expensemanager.controller.IncomeCategoryController;
 import com.epicsoft.expensemanager.controller.PaymentMethodController;
+import com.epicsoft.expensemanager.model.Income;
 import com.epicsoft.expensemanager.model.IncomeCategory;
+import com.epicsoft.expensemanager.controller.IncomeController;
 import com.epicsoft.expensemanager.model.PaymentMethod;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -30,7 +34,7 @@ public class AddIncomeDialogbox extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         this.user = user;
-
+        dateChooser.setDate(new Date());
         try {
             fillIncomeCategoryComboBox();
             fillPaymentMethodComboBox();
@@ -56,12 +60,12 @@ public class AddIncomeDialogbox extends javax.swing.JDialog {
         categoryLabel = new javax.swing.JLabel();
         paymentMethodLabel = new javax.swing.JLabel();
         descriptionLabel = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        descriptionTextField = new javax.swing.JTextField();
         paymentMethodComboBox = new javax.swing.JComboBox();
         incomeCategoryComboBox = new javax.swing.JComboBox();
-        jTextField1 = new javax.swing.JTextField();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
-        jComboBox1 = new javax.swing.JComboBox();
+        amountTextField = new javax.swing.JTextField();
+        dateChooser = new com.toedter.calendar.JDateChooser();
+        accountComboBox = new javax.swing.JComboBox();
         cancelButton = new javax.swing.JLabel();
         saveAndNewButton = new javax.swing.JLabel();
         saveButton = new javax.swing.JLabel();
@@ -91,7 +95,7 @@ public class AddIncomeDialogbox extends javax.swing.JDialog {
 
         incomeCategoryComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        accountComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         cancelButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/epicsoft/expensemanager/guiImages/CancelActive.png"))); // NOI18N
         cancelButton.setText("jLabel9");
@@ -107,6 +111,11 @@ public class AddIncomeDialogbox extends javax.swing.JDialog {
         saveAndNewButton.setPreferredSize(new java.awt.Dimension(90, 30));
 
         saveButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/epicsoft/expensemanager/guiImages/SaveInactive.png"))); // NOI18N
+        saveButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                saveButtonMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -125,10 +134,10 @@ public class AddIncomeDialogbox extends javax.swing.JDialog {
                             .addComponent(dateLabel))
                         .addGap(30, 30, 30)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField2)
-                            .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
-                            .addComponent(jTextField1)
+                            .addComponent(descriptionTextField)
+                            .addComponent(accountComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(dateChooser, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
+                            .addComponent(amountTextField)
                             .addComponent(incomeCategoryComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(paymentMethodComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
@@ -145,15 +154,15 @@ public class AddIncomeDialogbox extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(accLabel)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(accountComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(dateLabel)
-                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(dateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(amountLabel)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(amountTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(categoryLabel)
@@ -167,7 +176,7 @@ public class AddIncomeDialogbox extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(descriptionLabel)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 72, Short.MAX_VALUE))
+                    .addComponent(descriptionTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 72, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(saveButton)
@@ -182,6 +191,32 @@ public class AddIncomeDialogbox extends javax.swing.JDialog {
     private void cancelButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cancelButtonMouseClicked
         this.dispose();
     }//GEN-LAST:event_cancelButtonMouseClicked
+
+    private void saveButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_saveButtonMouseClicked
+        String account = accountComboBox.getSelectedItem().toString();
+        Date date = dateChooser.getDate();
+        int amount = Integer.parseInt(amountTextField.getText());
+        String category = incomeCategoryComboBox.getSelectedItem().toString();
+        String paymentMethod = paymentMethodComboBox.getSelectedItem().toString();
+        String description = descriptionTextField.getText();
+        java.util.Date utilDate = date;
+        java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+        Income income = new Income(account,sqlDate, category, amount, description, paymentMethod);
+        
+        try {
+            int res = IncomeController.addIncome(income,"testuser","root","dhanu");
+            if (res > 0) {
+                JOptionPane.showMessageDialog(this, "Income Saved Successfully...", "", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "Income saving failed...", "", JOptionPane.ERROR_MESSAGE);
+            }
+                
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(IncomeController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(IncomeController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_saveButtonMouseClicked
 
     /**
      * 
@@ -209,6 +244,15 @@ public class AddIncomeDialogbox extends javax.swing.JDialog {
         
         for (PaymentMethod paym : paymentMethods) {
             paymentMethodComboBox.addItem(paym);
+        }
+    }
+    
+    private void fillAccountComboBox() throws ClassNotFoundException, SQLException{
+        IncomeCategoryController iCC = new IncomeCategoryController();
+        List<IncomeCategory> allIncomeCategories = iCC.getAllIncomeCategory(user, "", "");
+        incomeCategoryComboBox.removeAllItems();
+        for (IncomeCategory incomeCategory : allIncomeCategories) {
+            incomeCategoryComboBox.addItem(incomeCategory);
         }
     }
     /**
@@ -255,16 +299,16 @@ public class AddIncomeDialogbox extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel accLabel;
+    private javax.swing.JComboBox accountComboBox;
     private javax.swing.JLabel amountLabel;
+    private javax.swing.JTextField amountTextField;
     private javax.swing.JLabel cancelButton;
     private javax.swing.JLabel categoryLabel;
+    private com.toedter.calendar.JDateChooser dateChooser;
     private javax.swing.JLabel dateLabel;
     private javax.swing.JLabel descriptionLabel;
+    private javax.swing.JTextField descriptionTextField;
     private javax.swing.JComboBox incomeCategoryComboBox;
-    private javax.swing.JComboBox jComboBox1;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JComboBox paymentMethodComboBox;
     private javax.swing.JLabel paymentMethodLabel;
     private javax.swing.JLabel saveAndNewButton;

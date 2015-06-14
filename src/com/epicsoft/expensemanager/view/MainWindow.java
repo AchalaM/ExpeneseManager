@@ -6,9 +6,19 @@
 
 package com.epicsoft.expensemanager.view;
 
+import com.epicsoft.expensemanager.controller.IncomeController;
+import com.epicsoft.expensemanager.model.Income;
 import java.awt.Color;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import sun.security.krb5.Config;
 
 /**
  *
@@ -110,6 +120,8 @@ public class MainWindow extends javax.swing.JFrame {
         allTimeRadioButton2 = new javax.swing.JRadioButton();
         monthlyRadioButton2 = new javax.swing.JRadioButton();
         dailyRadioButton2 = new javax.swing.JRadioButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        earningsTable = new javax.swing.JTable();
         budgetPanel = new javax.swing.JPanel();
         manageCategoriesPanel = new javax.swing.JPanel();
         addCategoryButton = new javax.swing.JLabel();
@@ -559,14 +571,15 @@ public class MainWindow extends javax.swing.JFrame {
             expensesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(expensesPanelLayout.createSequentialGroup()
                 .addGap(21, 21, 21)
-                .addGroup(expensesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(CategoryLabel)
-                    .addComponent(expenseCategoryComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(expensesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(expensesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(allTimeRadioButton1)
                         .addComponent(yearlyRadioButton1)
                         .addComponent(monthlyRadioButton1)
-                        .addComponent(dailyRadioButton1)))
+                        .addComponent(dailyRadioButton1))
+                    .addGroup(expensesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(CategoryLabel)
+                        .addComponent(expenseCategoryComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(4, 4, 4)
                 .addGroup(expensesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(expensesPanelLayout.createSequentialGroup()
@@ -586,6 +599,11 @@ public class MainWindow extends javax.swing.JFrame {
         accountLabel2.setText("Category");
 
         addNewButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/epicsoft/expensemanager/guiImages/AddNewActive.png"))); // NOI18N
+        addNewButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                addNewButton2MouseClicked(evt);
+            }
+        });
 
         editButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/epicsoft/expensemanager/guiImages/EditButtonInactive.png"))); // NOI18N
 
@@ -593,15 +611,54 @@ public class MainWindow extends javax.swing.JFrame {
 
         EarningsTimePeriod.add(yearlyRadioButton2);
         yearlyRadioButton2.setText("Yearly");
+        yearlyRadioButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                yearlyRadioButton2ActionPerformed(evt);
+            }
+        });
 
         EarningsTimePeriod.add(allTimeRadioButton2);
+        allTimeRadioButton2.setSelected(true);
         allTimeRadioButton2.setText("All Time");
+        allTimeRadioButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                allTimeRadioButton2ActionPerformed(evt);
+            }
+        });
 
         EarningsTimePeriod.add(monthlyRadioButton2);
         monthlyRadioButton2.setText("Monthly");
+        monthlyRadioButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                monthlyRadioButton2ActionPerformed(evt);
+            }
+        });
 
         EarningsTimePeriod.add(dailyRadioButton2);
         dailyRadioButton2.setText("Daily");
+        dailyRadioButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dailyRadioButton2ActionPerformed(evt);
+            }
+        });
+
+        earningsTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Account", "Date", "Amount", "Category", "Payment Method", "Description"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Object.class, java.lang.Double.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(earningsTable);
 
         javax.swing.GroupLayout earningsPanelLayout = new javax.swing.GroupLayout(earningsPanel);
         earningsPanel.setLayout(earningsPanelLayout);
@@ -609,25 +666,28 @@ public class MainWindow extends javax.swing.JFrame {
             earningsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(earningsPanelLayout.createSequentialGroup()
                 .addGap(26, 26, 26)
-                .addComponent(accountLabel2)
-                .addGap(18, 18, 18)
-                .addComponent(earningCategoryComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(allTimeRadioButton2)
-                .addGap(18, 18, 18)
-                .addComponent(yearlyRadioButton2)
-                .addGap(18, 18, 18)
-                .addComponent(monthlyRadioButton2)
-                .addGap(18, 18, 18)
-                .addComponent(dailyRadioButton2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, earningsPanelLayout.createSequentialGroup()
-                .addContainerGap(655, Short.MAX_VALUE)
                 .addGroup(earningsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(deleteButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(editButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(addNewButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(53, 53, 53))
+                    .addGroup(earningsPanelLayout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 595, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                        .addGroup(earningsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(deleteButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(editButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(addNewButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(53, 53, 53))
+                    .addGroup(earningsPanelLayout.createSequentialGroup()
+                        .addComponent(accountLabel2)
+                        .addGap(18, 18, 18)
+                        .addComponent(earningCategoryComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(allTimeRadioButton2)
+                        .addGap(18, 18, 18)
+                        .addComponent(yearlyRadioButton2)
+                        .addGap(18, 18, 18)
+                        .addComponent(monthlyRadioButton2)
+                        .addGap(18, 18, 18)
+                        .addComponent(dailyRadioButton2)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         earningsPanelLayout.setVerticalGroup(
             earningsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -643,12 +703,16 @@ public class MainWindow extends javax.swing.JFrame {
                         .addComponent(accountLabel2)
                         .addComponent(earningCategoryComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(addNewButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(editButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(deleteButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(478, Short.MAX_VALUE))
+                .addGroup(earningsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(earningsPanelLayout.createSequentialGroup()
+                        .addComponent(addNewButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(editButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(deleteButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 610, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         budgetPanel.setPreferredSize(new java.awt.Dimension(858, 669));
@@ -908,6 +972,8 @@ public class MainWindow extends javax.swing.JFrame {
 
     private void earningsButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_earningsButtonMouseClicked
         changeInterface(4, "EarningsActive.png");
+        refresh();
+        fillEarningstable();
     }//GEN-LAST:event_earningsButtonMouseClicked
 
     private void budgetButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_budgetButtonMouseClicked
@@ -940,11 +1006,13 @@ public class MainWindow extends javax.swing.JFrame {
 
     private void addExpenseButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addExpenseButtonMouseClicked
         AddExpenseDialogbox addExpense = new AddExpenseDialogbox(activeUser, this, rootPaneCheckingEnabled);
+        addExpense.setLocationRelativeTo(null);
         addExpense.setVisible(true);
     }//GEN-LAST:event_addExpenseButtonMouseClicked
 
     private void addEarningButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addEarningButtonMouseClicked
         AddIncomeDialogbox addIncome = new AddIncomeDialogbox(this, rootPaneCheckingEnabled, getActiveUser());
+        addIncome.setLocationRelativeTo(null);
         addIncome.setVisible(true);
     }//GEN-LAST:event_addEarningButtonMouseClicked
 
@@ -964,8 +1032,87 @@ public class MainWindow extends javax.swing.JFrame {
         addExpense.setVisible(true);
     }//GEN-LAST:event_addNewButton1MouseClicked
 
+    private void addNewButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addNewButton2MouseClicked
+        AddIncomeDialogbox addIncome = new AddIncomeDialogbox(this, rootPaneCheckingEnabled, getActiveUser());
+        addIncome.setLocationRelativeTo(null);
+        addIncome.setVisible(true);
+    }//GEN-LAST:event_addNewButton2MouseClicked
+
+    private void allTimeRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_allTimeRadioButton2ActionPerformed
+        refresh();
+        fillEarningstable();
+    }//GEN-LAST:event_allTimeRadioButton2ActionPerformed
+
+    private void yearlyRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_yearlyRadioButton2ActionPerformed
+        refresh();
+        String sql = "SELECT * FROM earn WHERE DATE_SUB( CURDATE( ) , INTERVAL 1 year ) <= incDate order by incDate DESC";
+        fillEarningstable(sql);
+    }//GEN-LAST:event_yearlyRadioButton2ActionPerformed
+
+    private void monthlyRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_monthlyRadioButton2ActionPerformed
+        refresh();
+        String sql = "SELECT * FROM earn WHERE DATE_SUB( CURDATE( ) , INTERVAL 1 month ) <= incDate order by incDate DESC";
+        fillEarningstable(sql);
+    }//GEN-LAST:event_monthlyRadioButton2ActionPerformed
+
+    private void dailyRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dailyRadioButton2ActionPerformed
+        refresh();
+        String sql = "SELECT * FROM earn WHERE DATE_SUB( CURDATE( ) , INTERVAL 1 day ) <= incDate order by incDate DESC";
+        fillEarningstable(sql);
+    }//GEN-LAST:event_dailyRadioButton2ActionPerformed
+
     public void setActiveUser(String user){
         activeUser = user;
+    }
+    
+    public void fillEarningstable(){
+        List<Income> incomeList = new ArrayList<>();
+        try {
+            incomeList = IncomeController.getAllIncomes("", "root", "dhanu");
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        if(incomeList.size() > 0)
+        {
+            DefaultTableModel dtm = (DefaultTableModel)earningsTable.getModel();
+            for (Income income : incomeList) {
+                Object[] row = {income.getAccountName(),income.getDate(),income.getAmount(),
+                 income.getCategory(),income.getDescription(),income.getPaymentMethod()};
+                dtm.addRow(row);
+            }   
+        }
+    }
+    
+    public void fillEarningstable(String sql){
+        List<Income> incomeList = new ArrayList<>();
+        try {
+            incomeList = IncomeController.runQuery("", "root", "dhanu",sql);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        if(incomeList.size() > 0)
+        {
+            DefaultTableModel dtm = (DefaultTableModel)earningsTable.getModel();
+            for (Income income : incomeList) {
+                Object[] row = {income.getAccountName(),income.getDate(),income.getAmount(),
+                 income.getCategory(),income.getDescription(),income.getPaymentMethod()};
+                dtm.addRow(row);
+            }   
+        }
+    }
+    
+    public void refresh(){
+        int rowCount = earningsTable.getRowCount();
+        for (int i = 0; i < rowCount; i++) {
+            ((DefaultTableModel)earningsTable.getModel()).removeRow(0);
+            //remove 0th row every time until all is removed
+        }
     }
     /**
      * @param args the command line arguments
@@ -1088,6 +1235,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JComboBox earningCategoryComboBox;
     private javax.swing.JLabel earningsButton;
     private javax.swing.JPanel earningsPanel;
+    private javax.swing.JTable earningsTable;
     private javax.swing.JLabel editAccountButton;
     private javax.swing.JLabel editButton;
     private javax.swing.JLabel editButton1;
@@ -1100,6 +1248,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JPanel helpPanel;
     private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
     private javax.swing.JLabel manageCategoriesButton;
     private javax.swing.JPanel manageCategoriesPanel;

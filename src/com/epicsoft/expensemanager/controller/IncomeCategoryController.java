@@ -38,4 +38,18 @@ public class IncomeCategoryController {
         }
         return incomeCategoryList;
     }
+    
+    public static int addIncomeCategory(IncomeCategory category,String dbName, String user, String password) throws ClassNotFoundException, SQLException{
+        String sql = "INSERT INTO Income_item values('"+category.getIncomeCategory()+"')";
+        Connection connection = DBConnection.getInstance().getConnection();
+        Statement stm = connection.createStatement();
+        return stm.executeUpdate(sql);
+    }
+    
+    public static int removeIncomeCategory(IncomeCategory category,String dbName, String user, String password) throws ClassNotFoundException, SQLException{
+        String sql = "DELETE FROM Income_item where Category =" + category.getIncomeCategory();
+        Connection connection = DBConnection.getInstance().getConnection();
+        Statement stm = connection.createStatement();
+        return stm.executeUpdate(sql);
+    }
 }

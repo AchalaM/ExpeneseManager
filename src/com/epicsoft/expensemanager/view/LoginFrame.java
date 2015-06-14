@@ -151,6 +151,7 @@ public class LoginFrame extends javax.swing.JFrame {
                 MainWindow mw = new MainWindow();
                 this.dispose();
                 mw.setActiveUser(usernameTextField.getText());
+                mw.setLocationRelativeTo(null);
                 mw.setVisible(true);
             }
             else {

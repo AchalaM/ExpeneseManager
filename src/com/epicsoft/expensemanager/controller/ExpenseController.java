@@ -21,19 +21,10 @@ import java.util.ArrayList;
  */
 public class ExpenseController {
 
-    /**
-     * 
-     * @param user
-     * @param expense
-     * @return
-     * @throws ClassNotFoundException
-     * @throws SQLException 
-     */
-    public int addExpenses(String user, Expend expense) throws ClassNotFoundException, SQLException{
+    public int addExpenses(Expend expense) throws ClassNotFoundException, SQLException{
     
-        String sql = "insert into expend values('"+expense.getAccountName()+"','"+expense.getData()+"',"+expense.getAmount()+",'"+expense.getCategory()+"','"+expense.getPaymentMothod()+"','"+expense.getDiscription()+"')";
+        String sql = "insert into expend values('"+expense.getAccountName()+"','"+expense.getData()+"',"+expense.getAmount()+",'"+expense.getCategory()+"','"+expense.getPaymentMethod()+"','"+expense.getDiscription()+"')";
         Connection connection = DBConnection.getInstance().getConnection();
-
         try{
             Statement stm = connection.createStatement();
             int res = stm.executeUpdate(sql);
@@ -51,32 +42,21 @@ public class ExpenseController {
 
     /**
      *
-
-     * @param user
      * @param date
      * @param accountName
      * @param RealDate
-
-     * @param date
-     * @param accountName
-
      * @return
      * @throws SQLException
      * @throws ClassNotFoundException
      */
-
-    public static List<Expend> viewExpense(String user, int date,String accountName,String RealDate) throws SQLException,ClassNotFoundException{
-
-
+    public static List<Expend> viewExpense(int date,String accountName,String RealDate) throws SQLException,ClassNotFoundException{
         int year=1,alltime=0,daly=3,monthly=2;
         
         List<Expend> expList = new ArrayList<>();
         try{
         if(date==alltime){
             String sql="select *from expend";
-
             Connection connection = DBConnection.getInstance().getConnection();
-
             Statement stm = connection.createStatement();
             ResultSet rst = stm.executeQuery(sql);
             while (rst.next()) {
@@ -93,9 +73,7 @@ public class ExpenseController {
         }
         if(date==year){
             String sql="select * from (select DATEPART(yyyy,expDate) as yearCol from expend)where yearCol ="+RealDate;
-
             Connection connection = DBConnection.getInstance().getConnection();
-
             Statement stm = connection.createStatement();
             ResultSet rst = stm.executeQuery(sql);
             while (rst.next()) {
@@ -111,9 +89,7 @@ public class ExpenseController {
         }
         if(date==monthly){
             String sql="select * from (select DATEPART(mm,expDate) as monthCol from expend) where monthCol="+RealDate ;
-
             Connection connection = DBConnection.getInstance().getConnection();
-
             Statement stm = connection.createStatement();
             ResultSet rst = stm.executeQuery(sql);
             while (rst.next()) {
@@ -129,9 +105,7 @@ public class ExpenseController {
         }
         if(date==daly){
             String sql="select *from expend where expDate='"+RealDate+"'";
-
             Connection connection = DBConnection.getInstance().getConnection();
-
             Statement stm = connection.createStatement();
             ResultSet rst = stm.executeQuery(sql);
             while (rst.next()) {
@@ -151,24 +125,13 @@ public class ExpenseController {
         }
         
         return expList;
-
+    
+    
     }
-    
-    /**
-     * 
-     * @param user
-     * @param exp
-     * @return
-     * @throws ClassNotFoundException
-     * @throws SQLException 
-     */
-    
-    
     public int deleteExpense(Expend exp) throws ClassNotFoundException, SQLException{
         
-        String sql="DELETE from expend where account='"+exp.getAccountName()+"',expDate='"+exp.getData()+"',amount="+exp.getAmount()+",category='"+exp.getCategory()+"',paymentMethod='"+exp.getPaymentMothod()+"',description='"+exp.getDiscription()+"'";
+        String sql="DELETE from expend where account='"+exp.getAccountName()+"',expDate='"+exp.getData()+"',amount="+exp.getAmount()+",category='"+exp.getCategory()+"',paymentMethod='"+exp.getPaymentMethod()+"',description='"+exp.getDiscription()+"'";
         Connection connection = DBConnection.getInstance().getConnection();
-
         try{
             
             Statement stm = connection.createStatement();
@@ -181,9 +144,8 @@ public class ExpenseController {
         return 0;
     
     }
-
     public int editExpense(Expend expense,int ID) throws ClassNotFoundException, SQLException{
-        String sql = "update expend set account='"+expense.getAccountName()+"' ,expDate='"+expense.getData()+"',ammount="+expense.getAmount()+",category='"+expense.getCategory()+"',paymentMethod='"+expense.getPaymentMothod()+"',description='"+expense.getDiscription()+"' where expIndex="+ID;
+        String sql = "update expend set account='"+expense.getAccountName()+"' ,expDate='"+expense.getData()+"',ammount="+expense.getAmount()+",category='"+expense.getCategory()+"',paymentMethod='"+expense.getPaymentMethod()+"',description='"+expense.getDiscription()+"' where expIndex="+ID;
         Connection connection = DBConnection.getInstance().getConnection();
         try{
             Statement stm = connection.createStatement();
@@ -201,6 +163,23 @@ public class ExpenseController {
     
     }
     
+    public  ResultSet searchExpense(String column,String Value) throws ClassNotFoundException, SQLException {
+        Expend expens;
+        String sql= "select * from expend where"+ column+"="+Value;
+        Connection connection = DBConnection.getInstance().getConnection();
+        try{
+            Statement stm = connection.createStatement();
+            ResultSet resultSet=stm.executeQuery(sql);
+            
+            return resultSet;
+            
+        }
+        catch(SQLException ex){
+            connection.rollback();
+            throw ex;
+        }
+        
+    }
 }
     
     

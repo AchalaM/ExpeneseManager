@@ -8,44 +8,35 @@ package com.epicsoft.expensemanager.model;
 
 /**
  *
- * @author hp
+ * @author SUPUN MADUSHANKA
  */
 public class ExpenseCategory {
-    private String category;
-    private String subCategory;
+    private String catergory;
 
-    public ExpenseCategory(String category, String subCategory) {
-        this.category = category;
-        this.subCategory = subCategory;
+    public ExpenseCategory(String catergory) {
+        this.catergory = catergory;
     }
+
+   
+    
 
     /**
      * @return the category
      */
-    public String getCategory() {
-        return category;
+    public String getCatergory() {
+        return catergory;
     }
 
     /**
-     * @param category the category to set
+     * @param catergory the catergory to set
      */
-    public void setCategory(String category) {
-        this.category = category;
+    public void setCatergory(String catergory) {
+        this.catergory = catergory;
     }
 
     /**
-     * @return the subCategory
+     * @return the subCatergory
      */
-    public String getSubCategory() {
-        return subCategory;
-    }
-
-    /**
-     * @param subCategory the subCategory to set
-     */
-    public void setSubCategory(String subCategory) {
-        this.subCategory = subCategory;
-    }
     
     
 }

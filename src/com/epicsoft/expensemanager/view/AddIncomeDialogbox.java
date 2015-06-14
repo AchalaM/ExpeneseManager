@@ -204,7 +204,7 @@ public class AddIncomeDialogbox extends javax.swing.JDialog {
      */
     private void fillPaymentMethodComboBox() throws ClassNotFoundException, SQLException{
         PaymentMethodController pmc = new PaymentMethodController();
-        List<PaymentMethod> paymentMethods = pmc.getAllPaymentMethods(user, "", "");
+        List<PaymentMethod> paymentMethods = pmc.getAllPaymentMethods();
         paymentMethodComboBox.removeAllItems();
         
         for (PaymentMethod paym : paymentMethods) {

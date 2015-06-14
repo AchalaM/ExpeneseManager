@@ -79,6 +79,30 @@ public class UserController {
         
         return alreadyExist;
     }
+    
+    public boolean loginuser(String username, String typedPassword) throws ClassNotFoundException, SQLException, NoSuchAlgorithmException, InvalidKeySpecException{
+        String correctHash = "";
+        boolean passwordOk = false;
+        String sql = "Select password from userlogininfo where username = \""+username+"\"";
+        
+        Connection connection = DBConnection.getInstance().getConnection();
+        Statement stm = connection.createStatement();
+        
+        ResultSet result = stm.executeQuery(sql);
+        
+        if (result.next()) {
+            correctHash = result.getObject("password").toString();
+            System.out.println(correctHash);
+        }
+        
+        if (PasswordHashing.validatePassword(typedPassword, correctHash)){
+            passwordOk = true;
+            System.out.println("password ok");
+        }else
+            System.out.println("password failed");
+        
+        return passwordOk;
+    }
        
     /**
      * Get the values from currency table

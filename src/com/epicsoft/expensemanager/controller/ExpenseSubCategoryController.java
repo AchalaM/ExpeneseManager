@@ -6,10 +6,9 @@
 
 package com.epicsoft.expensemanager.controller;
 
-
-
 import com.epicsoft.expensemanager.db.DBConnection;
 import com.epicsoft.expensemanager.model.ExpenseCategory;
+import com.epicsoft.expensemanager.model.ExpenseSubCategory;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -21,26 +20,25 @@ import java.util.List;
  *
  * @author SUPUN MADUSHANKA
  */
-public class ExpenseCategoryController {
-
-
-    public List<ExpenseCategory> getAllExpenseItems() throws ClassNotFoundException, SQLException{
-        List<ExpenseCategory> expList = new ArrayList<>();
-        String sql="select *from Expense_item";
+public class ExpenseSubCategoryController {
+    
+    public List<ExpenseSubCategory> vieWExpenseCategoryController(ExpenseCategory Category) throws ClassNotFoundException, SQLException{
+        List<ExpenseSubCategory> expList = new ArrayList<>();
+        String sql="select *from expense_categories where="+Category.getCatergory();
         Connection connection = DBConnection.getInstance().getConnection();
             Statement stm = connection.createStatement();
             ResultSet rst = stm.executeQuery(sql);
             while (rst.next()) {
-              String  category=rst.getString("category");
-              ExpenseCategory cat=new ExpenseCategory(category);
+              String  subcategory=rst.getString("sub_category");
+              ExpenseSubCategory cat=new ExpenseSubCategory(subcategory);
               expList.add(cat);
               
             }
         return expList;
     }
-    public int addCategory(ExpenseCategory catergory) throws ClassNotFoundException, SQLException{
+    public int AddExpenseSubCategoryController(ExpenseSubCategory subCatergory) throws ClassNotFoundException, SQLException{
         
-        String sql="insert into Expense_item values('"+catergory.getCatergory()+"')";
+        String sql="insert into expense_categories values('"+subCatergory.getSubCatogory()+"')";
         Connection connection = DBConnection.getInstance().getConnection();
         try{
             Statement stm = connection.createStatement();
@@ -56,9 +54,9 @@ public class ExpenseCategoryController {
         }
         return -1;
     }
-    public int DeleteExpenseCatergory(ExpenseCategory catergory) throws ClassNotFoundException, SQLException{
+    public int DeleteExpenseSubCatergoryController(ExpenseSubCategory subCatergory) throws ClassNotFoundException, SQLException{
     
-        String sql="DELETE from Expense_item where category='"+catergory.getCatergory()+"'";
+        String sql="DELETE from expense_categories where sub_category='"+subCatergory.getSubCatogory()+"'";
         Connection connection = DBConnection.getInstance().getConnection();
         try{
             
@@ -71,8 +69,8 @@ public class ExpenseCategoryController {
         }
         return 0;
     }
-    public int EditExpenseCategory(ExpenseCategory catergory,ExpenseCategory updateCategory) throws ClassNotFoundException, SQLException{
-        String sql = "update Expense_item set category='"+updateCategory.getCatergory()+"' where category='"+catergory.getCatergory();
+    public int EditExpenseSubCategoryController(ExpenseSubCategory subCatergory,ExpenseCategory category) throws ClassNotFoundException, SQLException{
+        String sql = "update expense_categories set category='"+category.getCatergory()+"',sub_category="+subCatergory.getSubCatogory()+", where ='"+subCatergory.getSubCatogory()+"'";
         Connection connection = DBConnection.getInstance().getConnection();
         try{
             Statement stm = connection.createStatement();
@@ -89,7 +87,4 @@ public class ExpenseCategoryController {
         return -1;
     
     }
-    
-    
-
 }

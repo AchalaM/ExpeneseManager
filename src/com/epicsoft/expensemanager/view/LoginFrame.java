@@ -87,6 +87,11 @@ public class LoginFrame extends javax.swing.JFrame {
         });
 
         cancelButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/epicsoft/expensemanager/guiImages/LoginCancel.png"))); // NOI18N
+        cancelButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cancelButtonMouseClicked(evt);
+            }
+        });
 
         errorMsgLabel.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         errorMsgLabel.setForeground(new java.awt.Color(255, 0, 0));
@@ -141,13 +146,12 @@ public class LoginFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void loginButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loginButtonMouseClicked
-        String username = usernameTextField.getText();
+       /* String username = usernameTextField.getText();
         String typedPassword = passwordField.getPassword().toString();
         
         try {
-            String hashedPassword = PasswordHashing.createHash(typedPassword);
-                        
-            if (PasswordHashing.validatePassword(typedPassword, hashedPassword)) {
+                                    
+            if (usercontroller.loginuser(username, typedPassword)) {
                 MainWindow mw = new MainWindow();
                 this.dispose();
                 mw.setActiveUser(usernameTextField.getText());
@@ -157,13 +161,22 @@ public class LoginFrame extends javax.swing.JFrame {
             errorMsgLabel.setText("Invalid Username or Password");
             usernameTextField.setText("");
             passwordField.setText("");
+            usernameTextField.grabFocus();
             }
         } catch (NoSuchAlgorithmException ex) {
             Logger.getLogger(LoginFrame.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InvalidKeySpecException ex) {
             Logger.getLogger(LoginFrame.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(LoginFrame.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(LoginFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
-                
+          */  
+        MainWindow mw = new MainWindow();
+                this.dispose();
+                mw.setActiveUser(usernameTextField.getText());
+                mw.setVisible(true);
     }//GEN-LAST:event_loginButtonMouseClicked
 
     private void passwordFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passwordFieldKeyTyped
@@ -175,6 +188,10 @@ public class LoginFrame extends javax.swing.JFrame {
         this.dispose();
         newUserForm.setVisible(true);
     }//GEN-LAST:event_newUserButtonMouseClicked
+
+    private void cancelButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cancelButtonMouseClicked
+        this.dispose();
+    }//GEN-LAST:event_cancelButtonMouseClicked
 
     /**
      * @param args the command line arguments

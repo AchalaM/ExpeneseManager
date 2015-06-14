@@ -20,7 +20,7 @@ import java.util.List;
  * @author DHANUSHKA
  */
 public class PaymentMethodController {
-    public List<PaymentMethod> getAllPaymentMethods(String dbName, String user, String password) throws ClassNotFoundException, SQLException{
+    public List<PaymentMethod> getAllPaymentMethods() throws ClassNotFoundException, SQLException{
         String sql = "SELECT * FROM Payment_Method";
         Connection connection = DBConnection.getInstance().getConnection();
         Statement stm = connection.createStatement();

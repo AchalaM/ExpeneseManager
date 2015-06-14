@@ -24,13 +24,13 @@ public class ExpenseSubCategoryController {
     
     public List<ExpenseSubCategory> vieWExpenseCategoryController(ExpenseCategory Category) throws ClassNotFoundException, SQLException{
         List<ExpenseSubCategory> expList = new ArrayList<>();
-        String sql="select *from expense_categories where="+Category.getCatergory();
+        String sql="select sub_category from expense_categories where category = \""+Category.getCatergory()+"\"";
         Connection connection = DBConnection.getInstance().getConnection();
             Statement stm = connection.createStatement();
             ResultSet rst = stm.executeQuery(sql);
             while (rst.next()) {
               String  subcategory=rst.getString("sub_category");
-              ExpenseSubCategory cat=new ExpenseSubCategory(subcategory);
+              ExpenseSubCategory cat = new ExpenseSubCategory(subcategory);
               expList.add(cat);
               
             }

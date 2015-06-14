@@ -14,15 +14,16 @@ public class Account {
     
     private String AccountName;
     private String accountType;
+    private double initialBalance;
+    private double currentBalance;
 
-    public Account(String AccountName, String accountType, double initialBalance, String accountNumber) {
+    public Account(String AccountName, String accountType, double initialBalance, double currentBalance) {
         this.AccountName = AccountName;
         this.accountType = accountType;
         this.initialBalance = initialBalance;
-        this.accountNumber = accountNumber;
+        this.currentBalance = currentBalance;
     }
-    private double initialBalance;
-    private String accountNumber;
+    
 
     /**
      * @return the AccountName
@@ -67,22 +68,17 @@ public class Account {
     }
 
     /**
-     * @return the accountNumber
+     * @return the currentBalance
      */
-    public String getAccountNumber() {
-        return accountNumber;
+    public double getCurrentBalance() {
+        return currentBalance;
     }
 
     /**
-     * @param accountNumber the accountNumber to set
+     * @param currentBalance the currentBalance to set
      */
-    public void setAccountNumber(String accountNumber) {
-        this.accountNumber = accountNumber;
+    public void setCurrentBalance(double currentBalance) {
+        this.currentBalance = currentBalance;
     }
-    
-    /**
-     * @return the AccountName
-     */
-    
     
 }

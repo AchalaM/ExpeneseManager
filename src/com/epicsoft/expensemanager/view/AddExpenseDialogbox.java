@@ -6,10 +6,12 @@
 
 package com.epicsoft.expensemanager.view;
 
+import com.epicsoft.expensemanager.controller.AccountController;
 import com.epicsoft.expensemanager.controller.ExpenseCategoryController;
 import com.epicsoft.expensemanager.controller.PaymentMethodController;
 import com.epicsoft.expensemanager.controller.ExpenseSubCategoryController;
 import com.epicsoft.expensemanager.controller.ExpenseController;
+import com.epicsoft.expensemanager.model.Account;
 import com.epicsoft.expensemanager.model.PaymentMethod;
 import com.epicsoft.expensemanager.model.ExpenseSubCategory;
 import com.epicsoft.expensemanager.model.ExpenseCategory;
@@ -44,6 +46,7 @@ public class AddExpenseDialogbox extends javax.swing.JDialog {
         this.user = user;
         
         try {
+            fillAccountComboBox();
             fillPaymentMethodComboBox();
             fillExpenseItemsComboBox();
         } catch (ClassNotFoundException | SQLException ex) {
@@ -274,17 +277,28 @@ public class AddExpenseDialogbox extends javax.swing.JDialog {
         categoryComboBox.removeAllItems();
         
         for (ExpenseCategory expC : expenseCategory) {
-            categoryComboBox.addItem(expC);
+            categoryComboBox.addItem(expC.getCatergory());
         }
     }
     
     private void fillSubcategoryComboBox() throws ClassNotFoundException, SQLException{
-        ExpenseSubCategoryController expCatCon=new ExpenseSubCategoryController();
-        ExpenseCategory Category=new ExpenseCategory((String) categoryComboBox.getSelectedItem());
-        List<ExpenseSubCategory> expCat=expCatCon.vieWExpenseCategoryController(Category);
+        ExpenseSubCategoryController expCatCon = new ExpenseSubCategoryController();
+        ExpenseCategory Category = new ExpenseCategory((String) categoryComboBox.getSelectedItem());
+        subcategoryComboBox.removeAllItems();
+        
+        List<ExpenseSubCategory> expCat = expCatCon.vieWExpenseCategoryController(Category);
         for (ExpenseSubCategory expenseCatergory : expCat) {
             subcategoryComboBox.addItem(expenseCatergory.getSubCatogory());
         }
+    }
+    
+    private void fillAccountComboBox() throws ClassNotFoundException, SQLException{
+        AccountController accCon = new AccountController();
+        List<Account> accList = accCon.getAllAccounts();
+        accountComboBox.removeAllItems();
+        
+        for (Account account : accList)
+            accountComboBox.addItem(account.getAccountName());
     }
     /**
      * @param args the command line arguments

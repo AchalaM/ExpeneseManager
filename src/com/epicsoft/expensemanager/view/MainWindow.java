@@ -6,9 +6,16 @@
 
 package com.epicsoft.expensemanager.view;
 
+import com.epicsoft.expensemanager.controller.AccountController;
+import com.epicsoft.expensemanager.model.Account;
 import java.awt.Color;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -19,6 +26,8 @@ public class MainWindow extends javax.swing.JFrame {
     private JLabel buttonList[];
     private JPanel panelList[];
     private String activeUser;
+    
+    private DefaultTableModel accountDTM;
     /**
      * Creates new form MainWindow
      */
@@ -27,6 +36,7 @@ public class MainWindow extends javax.swing.JFrame {
         buttonList = new JLabel[] {overviewButton, accountsButton, accountActivitiesButton, expensesButton, earningsButton, budgetButton, manageCategoriesButton, reportsButton, configurationButton, aboutButton, helpButton};
         panelList = new JPanel[] {overviewPanel, accountsPanel, accountActivitiesPanel, expensesPanel, earningsPanel, budgetPanel, manageCategoriesPanel, reportPanel, configurationPanel, aboutPanel, helpPanel};
         this.getContentPane().setBackground(Color.WHITE);
+        accountDTM = (DefaultTableModel) accountTable.getModel();
     }
 
     /**
@@ -78,6 +88,8 @@ public class MainWindow extends javax.swing.JFrame {
         deleteAccountButton = new javax.swing.JLabel();
         viewActivitiesButton = new javax.swing.JLabel();
         transferButton = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        accountTable = new javax.swing.JTable();
         accountActivitiesPanel = new javax.swing.JPanel();
         accountLabel = new javax.swing.JLabel();
         accountComboBox = new javax.swing.JComboBox();
@@ -364,6 +376,11 @@ public class MainWindow extends javax.swing.JFrame {
         accountsPanel.setPreferredSize(new java.awt.Dimension(858, 669));
 
         addNewAccountButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/epicsoft/expensemanager/guiImages/AddNewActive.png"))); // NOI18N
+        addNewAccountButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                addNewAccountButtonMouseClicked(evt);
+            }
+        });
 
         editAccountButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/epicsoft/expensemanager/guiImages/EditButtonInactive.png"))); // NOI18N
 
@@ -378,12 +395,39 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
 
+        accountTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Name", "Account Type", "Initial Balance", "Current Balance"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.Double.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(accountTable);
+
         javax.swing.GroupLayout accountsPanelLayout = new javax.swing.GroupLayout(accountsPanel);
         accountsPanel.setLayout(accountsPanelLayout);
         accountsPanelLayout.setHorizontalGroup(
             accountsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(accountsPanelLayout.createSequentialGroup()
-                .addGap(655, 655, 655)
+                .addGap(24, 24, 24)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 613, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(accountsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(transferButton)
                     .addComponent(viewActivitiesButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -396,16 +440,19 @@ public class MainWindow extends javax.swing.JFrame {
             accountsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(accountsPanelLayout.createSequentialGroup()
                 .addGap(30, 30, 30)
-                .addComponent(viewActivitiesButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(transferButton)
-                .addGap(82, 82, 82)
-                .addComponent(addNewAccountButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(editAccountButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(deleteAccountButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGroup(accountsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addGroup(accountsPanelLayout.createSequentialGroup()
+                        .addComponent(viewActivitiesButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(transferButton)
+                        .addGap(82, 82, 82)
+                        .addComponent(addNewAccountButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(editAccountButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(deleteAccountButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(89, 89, 89))
         );
 
         accountActivitiesPanel.setPreferredSize(new java.awt.Dimension(858, 669));
@@ -559,14 +606,15 @@ public class MainWindow extends javax.swing.JFrame {
             expensesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(expensesPanelLayout.createSequentialGroup()
                 .addGap(21, 21, 21)
-                .addGroup(expensesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(CategoryLabel)
-                    .addComponent(expenseCategoryComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(expensesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(expensesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(allTimeRadioButton1)
                         .addComponent(yearlyRadioButton1)
                         .addComponent(monthlyRadioButton1)
-                        .addComponent(dailyRadioButton1)))
+                        .addComponent(dailyRadioButton1))
+                    .addGroup(expensesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(CategoryLabel)
+                        .addComponent(expenseCategoryComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(4, 4, 4)
                 .addGroup(expensesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(expensesPanelLayout.createSequentialGroup()
@@ -892,6 +940,7 @@ public class MainWindow extends javax.swing.JFrame {
 
     private void accountsButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_accountsButtonMouseClicked
         changeInterface(1, "AccountsActive.png");
+        fillAccountTable();
     }//GEN-LAST:event_accountsButtonMouseClicked
 
     private void overviewButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_overviewButtonMouseClicked
@@ -964,6 +1013,28 @@ public class MainWindow extends javax.swing.JFrame {
         addExpense.setVisible(true);
     }//GEN-LAST:event_addNewButton1MouseClicked
 
+    private void addNewAccountButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addNewAccountButtonMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_addNewAccountButtonMouseClicked
+
+    private void fillAccountTable() {
+        AccountController accController = new AccountController();
+        
+        try {
+            List<Account> accountList = accController.getAllAccounts();
+            
+            for (Account acc: accountList) {
+                Object[] row = {acc.getAccountName(), acc.getAccountType(), acc.getInitialBalance(), acc.getCurrentBalance()};
+                accountDTM.addRow(row);
+            }
+            
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     public void setActiveUser(String user){
         activeUser = user;
     }
@@ -1053,6 +1124,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JComboBox accountComboBox;
     private javax.swing.JLabel accountLabel;
     private javax.swing.JLabel accountLabel2;
+    private javax.swing.JTable accountTable;
     private javax.swing.JLabel accountsButton;
     private javax.swing.JPanel accountsPanel;
     private javax.swing.JLabel activeUserLabel;
@@ -1100,6 +1172,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JPanel helpPanel;
     private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
     private javax.swing.JLabel manageCategoriesButton;
     private javax.swing.JPanel manageCategoriesPanel;

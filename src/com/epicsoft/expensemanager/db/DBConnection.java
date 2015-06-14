@@ -32,7 +32,7 @@ public class DBConnection {
      */
     private DBConnection() throws ClassNotFoundException, SQLException{
         Class.forName(DRIVER);
-        connection = DriverManager.getConnection(DB_URL, "root", "mrt");
+        connection = DriverManager.getConnection(DB_URL, "root", "dhanu");
     }
     
     /**

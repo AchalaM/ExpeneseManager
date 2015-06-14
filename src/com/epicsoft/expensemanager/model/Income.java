@@ -6,26 +6,29 @@
 
 package com.epicsoft.expensemanager.model;
 
+import java.sql.Date;
+
 /**
  *
  * @author SUPUN MADUSHANKA
  */
 public class Income {
     private String AccountName;
-    private String Date; 
+    private Date Date; 
     private String Category;
     private double amount;
     private String description;
     private String paymentMethod;
 
 
-    public Income(String AccountName, String Date, String Category, double amount, String description) {
+    public Income(String AccountName, Date Date, String Category, double amount, String description,String paymentMethod) {
         this.AccountName = AccountName;
         this.Date = Date;
         this.Category = Category;
         this.amount = amount;
+        this.paymentMethod = paymentMethod;
         this.description = description;
-    }
+    }   
 
     /**
      * @return the AccountName
@@ -44,14 +47,14 @@ public class Income {
     /**
      * @return the Date
      */
-    public String getDate() {
+    public Date getDate() {
         return Date;
     }
 
     /**
      * @param Date the Date to set
      */
-    public void setDate(String Date) {
+    public void setDate(Date Date) {
         this.Date = Date;
     }
 

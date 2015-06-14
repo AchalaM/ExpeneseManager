@@ -4,13 +4,10 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/hp/DB_project/ExpenseManager/src/com/epicsoft/expensemanager/controller/UserController.java</file>
-            <file>file:/C:/Users/hp/DB_project/ExpenseManager/src/com/epicsoft/expensemanager/model/UserAccount.java</file>
-            <file>file:/C:/Users/hp/DB_project/ExpenseManager/src/com/epicsoft/expensemanager/model/User.java</file>
             <file>file:/C:/Users/hp/DB_project/ExpenseManager/src/com/epicsoft/expensemanager/controller/DBController.java</file>
-            <file>file:/C:/Users/hp/DB_project/ExpenseManager/src/com/epicsoft/expensemanager/view/NewUserFrame.java</file>
+            <file>file:/C:/Users/hp/DB_project/ExpenseManager/src/com/epicsoft/expensemanager/controller/AccountController.java</file>
             <file>file:/C:/Users/hp/DB_project/ExpenseManager/src/com/epicsoft/expensemanager/view/LoginFrame.java</file>
-            <file>file:/C:/Users/hp/DB_project/ExpenseManager/src/com/epicsoft/expensemanager/db/DBConnection.java</file>
-            <file>file:/C:/Users/hp/DB_project/ExpenseManager/src/com/epicsoft/expensemanager/controller/PasswordHashing.java</file>
+            <file>file:/C:/Users/hp/DB_project/ExpenseManager/src/com/epicsoft/expensemanager/model/Account.java</file>
             <file>file:/C:/Users/hp/DB_project/ExpenseManager/src/com/epicsoft/expensemanager/main/Main.java</file>
         </group>
     </open-files>

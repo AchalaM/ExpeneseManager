@@ -11,6 +11,7 @@ import com.epicsoft.expensemanager.model.Currency;
 import com.epicsoft.expensemanager.model.User;
 import com.epicsoft.expensemanager.model.UserAccount;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -204,7 +205,7 @@ public class NewUserFrame extends javax.swing.JFrame {
     private void saveButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_saveButtonMouseClicked
         String name = nameTextFeild.getText();
         String username = usernameTextFeild.getText();
-        String password = passwordFeild.getPassword().toString();
+        String password = Arrays.toString(passwordFeild.getPassword());
         String currencyType = currencyTypeComboBox.getSelectedItem().toString();
         String currencySymbol =  symbolComboBox.getSelectedItem().toString();
         
@@ -215,9 +216,7 @@ public class NewUserFrame extends javax.swing.JFrame {
         if (isAllFieldsOK()) {
             try {
                 result = userController.addNewUser(user, useracc);
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(NewUserFrame.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (SQLException ex) {
+            } catch (ClassNotFoundException | SQLException ex) {
                 Logger.getLogger(NewUserFrame.class.getName()).log(Level.SEVERE, null, ex);
             }
         

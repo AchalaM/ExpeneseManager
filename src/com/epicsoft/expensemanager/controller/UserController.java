@@ -54,7 +54,7 @@ public class UserController {
             
             stm.executeUpdate(sql_addUser);
             stm.executeUpdate(sql_addUserAcc);
-
+            
             return true;
         } catch (NoSuchAlgorithmException | InvalidKeySpecException ex) {
             Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);

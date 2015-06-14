@@ -17,20 +17,39 @@ import java.sql.Statement;
  */
 public class DBController {
     
-    public void addNewUser(User user){
+    /**
+     * Add a new user to the MySQL server.
+     * @param user  com.epicsoft.expensemanager.model.user object.
+     * @throws ClassNotFoundException
+     * @throws SQLException 
+     */
+    public void addNewUser(User user) throws ClassNotFoundException, SQLException{
+        String username = user.getUserName();
+        String password = user.getPassWord();
         
+        String sql = "create a user '"+username+"'@'localhost' identified by '"+password+"'";
+        
+        Connection connection = DBConnection.getInstance().getConnection();
+        Statement statement = connection.createStatement();
+        
+        statement.execute(sql);
     }
     
     /**
      * 
-     * @param dbName
-     * @param user
-     * @param password
+     * @param dbName    Name of the database, generally the user's name.
+     * @param password  Password for the MySQL server. use it without hashing.
      * @throws ClassNotFoundException
      * @throws SQLException 
      */
-    public void createDB() throws ClassNotFoundException, SQLException{
+    public void createDB(String dbName, String password) throws ClassNotFoundException, SQLException{
+        String sql = "";
+        
         Connection connection = DBConnection.getInstance().getConnection();
+        Statement statement = connection.createStatement();
+        
+        statement.execute(sql);
+        
     }
     
     /**

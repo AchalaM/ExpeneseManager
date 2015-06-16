@@ -6,18 +6,38 @@
 
 package com.epicsoft.expensemanager.view;
 
+import com.epicsoft.expensemanager.controller.ExpenseCategoryController;
+import com.epicsoft.expensemanager.controller.PaymentMethodController;
+import com.epicsoft.expensemanager.model.PaymentMethod;
+import com.epicsoft.expensemanager.model.ExpenseItem;
+import com.epicsoft.expensemanager.model.ExpenseCategory;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author hp
  */
 public class AddExpenseDialogbox extends javax.swing.JDialog {
-
+    private static String user;
     /**
      * Creates new form NewJDialog
      */
-    public AddExpenseDialogbox(java.awt.Frame parent, boolean modal) {
+    public AddExpenseDialogbox(String user, java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        this.user = user;
+        
+        try {
+            fillPaymentMethodComboBox();
+            fillExpenseItemsComboBox();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(AddExpenseDialogbox.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(AddExpenseDialogbox.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -30,43 +50,68 @@ public class AddExpenseDialogbox extends javax.swing.JDialog {
     private void initComponents() {
 
         dateComponentFormatter1 = new org.jdatepicker.impl.DateComponentFormatter();
-        jLabel1 = new javax.swing.JLabel();
+        accLabel = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox();
-        jLabel5 = new javax.swing.JLabel();
-        jComboBox3 = new javax.swing.JComboBox();
-        jLabel6 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        dateLabel = new javax.swing.JLabel();
+        amountLabel = new javax.swing.JLabel();
+        amountTextField = new javax.swing.JTextField();
+        categoryLabel = new javax.swing.JLabel();
+        categoryComboBox = new javax.swing.JComboBox();
+        paymentMethodLabel = new javax.swing.JLabel();
+        paymentMethodComboBox = new javax.swing.JComboBox();
+        descriptionLabel = new javax.swing.JLabel();
+        descriptionTextField = new javax.swing.JTextField();
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        saveButton = new javax.swing.JLabel();
+        saveAndNewButton = new javax.swing.JLabel();
+        cancelButton = new javax.swing.JLabel();
+        subcategoryComboBox = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Add Expense");
 
-        jLabel1.setText("Account");
+        accLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        accLabel.setText("Account");
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jLabel2.setText("Date");
+        dateLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        dateLabel.setText("Date");
 
-        jLabel3.setText("Amount");
+        amountLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        amountLabel.setText("Amount");
 
-        jTextField1.setText("jTextField1");
+        categoryLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        categoryLabel.setText("Category");
 
-        jLabel4.setText("Category");
+        categoryComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        paymentMethodLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        paymentMethodLabel.setText("Payment Method");
 
-        jLabel5.setText("Payment Method");
+        paymentMethodComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        descriptionLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        descriptionLabel.setText("Description");
 
-        jLabel6.setText("Description");
+        saveButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/epicsoft/expensemanager/guiImages/SaveInactive.png"))); // NOI18N
+        saveButton.setText("jLabel7");
+        saveButton.setPreferredSize(new java.awt.Dimension(90, 30));
 
-        jTextField2.setText("jTextField2");
+        saveAndNewButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/epicsoft/expensemanager/guiImages/Save&NewInactive.png"))); // NOI18N
+        saveAndNewButton.setText("jLabel8");
+        saveAndNewButton.setPreferredSize(new java.awt.Dimension(90, 30));
+
+        cancelButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/epicsoft/expensemanager/guiImages/CancelActive.png"))); // NOI18N
+        cancelButton.setText("jLabel9");
+        cancelButton.setPreferredSize(new java.awt.Dimension(90, 30));
+        cancelButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cancelButtonMouseClicked(evt);
+            }
+        });
+
+        subcategoryComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -74,56 +119,103 @@ public class AddExpenseDialogbox extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel2))
-                .addGap(67, 67, 67)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(151, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(accLabel)
+                            .addComponent(amountLabel)
+                            .addComponent(categoryLabel)
+                            .addComponent(paymentMethodLabel)
+                            .addComponent(descriptionLabel)
+                            .addComponent(dateLabel))
+                        .addGap(30, 30, 30)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(descriptionTextField)
+                            .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
+                            .addComponent(amountTextField)
+                            .addComponent(paymentMethodComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(categoryComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(subcategoryComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(saveButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(25, 25, 25)
+                        .addComponent(saveAndNewButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(25, 25, 25)
+                        .addComponent(cancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
+                    .addComponent(accLabel)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel2)
+                    .addComponent(dateLabel)
                     .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(amountLabel)
+                    .addComponent(amountTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(categoryLabel)
+                    .addComponent(categoryComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(subcategoryComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(paymentMethodLabel)
+                    .addComponent(paymentMethodComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(descriptionLabel)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(descriptionTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 72, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(119, Short.MAX_VALUE))
+                    .addComponent(saveButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(saveAndNewButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void cancelButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cancelButtonMouseClicked
+        this.dispose();
+    }//GEN-LAST:event_cancelButtonMouseClicked
+    
+    /**
+     * 
+     * @throws ClassNotFoundException
+     * @throws SQLException 
+     */
+    private void fillPaymentMethodComboBox() throws ClassNotFoundException, SQLException{
+        PaymentMethodController pmc = new PaymentMethodController();
+        List<PaymentMethod> paymentMethods = pmc.getAllPaymentMethods(user, "", "");
+        paymentMethodComboBox.removeAllItems();
+        
+        for (PaymentMethod paym : paymentMethods) {
+            paymentMethodComboBox.addItem(paym);
+        }
+    }
+    
+    private void fillExpenseItemsComboBox() throws ClassNotFoundException, SQLException{
+        ExpenseCategoryController ecc = new ExpenseCategoryController();
+        List<ExpenseItem> expenseItem = ecc.getAllExpenseItems(user, "", "");
+        categoryComboBox.removeAllItems();
+        
+        for (ExpenseItem expI : expenseItem) {
+            categoryComboBox.addItem(expI);
+        }
+    }
     /**
      * @param args the command line arguments
      */
@@ -154,7 +246,7 @@ public class AddExpenseDialogbox extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                AddExpenseDialogbox dialog = new AddExpenseDialogbox(new javax.swing.JFrame(), true);
+                AddExpenseDialogbox dialog = new AddExpenseDialogbox(user, new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -167,18 +259,22 @@ public class AddExpenseDialogbox extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel accLabel;
+    private javax.swing.JLabel amountLabel;
+    private javax.swing.JTextField amountTextField;
+    private javax.swing.JLabel cancelButton;
+    private javax.swing.JComboBox categoryComboBox;
+    private javax.swing.JLabel categoryLabel;
     private org.jdatepicker.impl.DateComponentFormatter dateComponentFormatter1;
+    private javax.swing.JLabel dateLabel;
+    private javax.swing.JLabel descriptionLabel;
+    private javax.swing.JTextField descriptionTextField;
     private javax.swing.JComboBox jComboBox1;
-    private javax.swing.JComboBox jComboBox2;
-    private javax.swing.JComboBox jComboBox3;
     private com.toedter.calendar.JDateChooser jDateChooser1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JComboBox paymentMethodComboBox;
+    private javax.swing.JLabel paymentMethodLabel;
+    private javax.swing.JLabel saveAndNewButton;
+    private javax.swing.JLabel saveButton;
+    private javax.swing.JComboBox subcategoryComboBox;
     // End of variables declaration//GEN-END:variables
 }
